@@ -11,10 +11,8 @@ export function TopBar() {
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(10px)', borderBottom: '1px solid var(--border)', background: 'rgba(255,255,255,0.85)' }}>
       <div style={{ maxWidth: 940, margin: '0 auto', padding: '10px 12px', display: 'flex', alignItems: 'center', gap: 10 }}>
-        {showBack ? (
+        {showBack && (
           <Link className="btn" to="/projects" style={{ padding: '8px 10px' }}>←</Link>
-        ) : (
-          <div style={{ width: 36 }} />
         )}
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 0 }}>
