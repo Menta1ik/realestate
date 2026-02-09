@@ -1,4 +1,10 @@
 {
+  "functions": {
+    "api/**/*.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
@@ -22,11 +28,11 @@
   "rewrites": [
     {
       "source": "/api/version",
-      "destination": "/api/version.ts"
+      "destination": "/api/version"
     },
     {
       "source": "/api/(.*)",
-      "destination": "/api/index.ts"
+      "destination": "/api/index"
     },
     {
       "source": "/(.*)",
