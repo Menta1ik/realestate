@@ -2,12 +2,26 @@ import { Link } from 'react-router-dom'
 import { useMemo, useState, useEffect } from 'react'
 import { useApp } from '../components/AppContext'
 import { t } from '../i18n'
-import { convertFromAED, formatMoney } from '../currency'
 import { getAreas } from '../api/areas'
 import { Area } from '../data/mock'
+import { ArrowRight } from 'lucide-react'
+
+const getAreaImage = (id: string) => {
+  const images: Record<string, string> = {
+    'downtown': 'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=800&q=80',
+    'marina': 'https://images.unsplash.com/photo-1512453979798-5ea904ac22ac?auto=format&fit=crop&w=800&q=80',
+    'palm-jumeirah': 'https://images.unsplash.com/photo-1610555356070-d0efb6505f81?auto=format&fit=crop&w=800&q=80',
+    'business-bay': 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80',
+    'arabian-ranches': 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80',
+    'jvc': 'https://images.unsplash.com/photo-1576435728672-024f182da3c0?auto=format&fit=crop&w=800&q=80',
+    'dubai-hills-estate': 'https://images.unsplash.com/photo-1613469425754-bf7ecb7c4335?auto=format&fit=crop&w=800&q=80',
+    'bluewaters-island': 'https://images.unsplash.com/photo-1577708316282-017a78d052d9?auto=format&fit=crop&w=800&q=80'
+  }
+  return images[id] || 'https://images.unsplash.com/photo-1546412414-e1885259563a?auto=format&fit=crop&w=800&q=80'
+}
 
 export default function Areas() {
-  const { lang, currency } = useApp()
+  const { lang } = useApp()
   const [q, setQ] = useState('')
   const [areas, setAreas] = useState<Area[]>([])
   const [loading, setLoading] = useState(true)
@@ -33,142 +47,97 @@ export default function Areas() {
   if (loading) return <div className="p-4 text-center" style={{ opacity: 0.6 }}>Loading areas...</div>
 
   return (
-    <div className="col" style={{ gap: 12 }}>
+    <div className="col" style={{ gap: 24, paddingBottom: 40 }}>
       <div>
         <div className="h2">{t(lang,'areas.title')}</div>
-        <div className="p">{t(lang,'areas.subtitle')}</div>
+        <div className="p" style={{ opacity: 0.7 }}>{t(lang,'areas.subtitle')}</div>
       </div>
 
-      <input className="input" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t(lang,'areas.search')} />
+      <input 
+        className="input" 
+        value={q} 
+        onChange={(e) => setQ(e.target.value)} 
+        placeholder={t(lang,'areas.search')} 
+      />
 
-      <div className="col" style={{ gap: 16 }}>
+      <style>{`
+        .areas-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        @media (min-width: 600px) {
+          .areas-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+      `}</style>
+
+      <div className="areas-grid">
         {filtered.map(a => (
-          <AreaCard key={a.id} area={a} lang={lang} currency={currency} />
+          <AreaTile key={a.id} area={a} lang={lang} />
         ))}
       </div>
     </div>
   )
 }
 
-function AreaCard({ area, lang, currency }: { area: Area, lang: 'en'|'ru', currency: string }) {
-  const [expanded, setExpanded] = useState(false)
+function AreaTile({ area, lang }: { area: Area, lang: 'en'|'ru' }) {
   const name = lang === 'ru' ? area.nameRu : area.nameEn
-  const description = lang === 'ru' ? area.descriptionRu : area.descriptionEn
-  const features = lang === 'ru' ? area.featuresRu : area.featuresEn
   const type = lang === 'ru' ? area.propertyTypeRu : area.propertyTypeEn
+  const image = getAreaImage(area.slug || area.id)
   
-  const schools = lang === 'ru' ? area.schoolsRu : area.schoolsEn
-  const prices = lang === 'ru' ? area.avgPricesRu : area.avgPricesEn
-
-  // Fallback to legacy price if available, or try to extract from avgPrices
-  const priceDisplay = area.priceFromAED 
-    ? formatMoney(convertFromAED(area.priceFromAED, currency), currency)
-    : null
-
   return (
-    <div className="card" style={{ padding: 16 }}>
-       {/* Header */}
-       <div className="row" style={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div style={{ flex: 1 }}>
-            <div className="h2">{name}</div>
-            {type && <div className="p" style={{ opacity: 0.7, fontSize: 13, marginTop: 2 }}>{type}</div>}
-          </div>
-          {area.roi && <div className="badge" style={{ marginLeft: 8 }}>ROI {area.roi}</div>}
-       </div>
+    <Link to={`/areas/${area.id}`} className="card" style={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      textDecoration: 'none', 
+      color: 'inherit',
+      overflow: 'hidden',
+      height: '100%',
+      transition: 'transform 0.2s',
+      cursor: 'pointer'
+    }}>
+      <div style={{ 
+        height: 200, 
+        background: `url(${image}) center/cover no-repeat`,
+        position: 'relative'
+      }}>
+        <div style={{ 
+          position: 'absolute', 
+          bottom: 0, 
+          left: 0, 
+          right: 0, 
+          background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)', 
+          padding: '20px 16px 16px'
+        }}>
+          <div className="h3" style={{ color: 'white', marginBottom: 4 }}>{name}</div>
+          {type && <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13 }}>{type}</div>}
+        </div>
+      </div>
+      
+      <div style={{ padding: 16, flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div className="p" style={{ 
+          fontSize: 14, 
+          lineHeight: '1.5',
+          display: '-webkit-box',
+          WebkitLineClamp: 3,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+          marginBottom: 16
+        }}>
+          {lang === 'ru' ? area.teaserRu || area.descriptionRu : area.teaserEn || area.descriptionEn}
+        </div>
 
-       {/* Features tags */}
-       {features && features.length > 0 && (
-         <div className="row" style={{ flexWrap: 'wrap', gap: 6, marginTop: 10 }}>
-            {features.map((f, i) => (
-              <span key={i} style={{ 
-                background: 'var(--bg-secondary)', 
-                color: 'var(--text-secondary)',
-                padding: '4px 8px', 
-                borderRadius: 6, 
-                fontSize: 11,
-                fontWeight: 500
-              }}>
-                {f}
-              </span>
-            ))}
-         </div>
-       )}
-
-       {/* Description Preview */}
-       {description && (
-         <div className="p" style={{ 
-           marginTop: 12, 
-           display: '-webkit-box', 
-           WebkitLineClamp: expanded ? 'none' : 3, 
-           WebkitBoxOrient: 'vertical', 
-           overflow: 'hidden',
-           lineHeight: '1.4'
-         }}>
-            {description}
-         </div>
-       )}
-       
-       <div 
-         style={{ color: 'var(--accent)', cursor: 'pointer', fontSize: 14, marginTop: 8, fontWeight: 500 }}
-         onClick={(e) => {
-           e.preventDefault()
-           setExpanded(!expanded)
-         }}
-       >
-         {expanded ? (lang === 'ru' ? 'Свернуть' : 'Show Less') : (lang === 'ru' ? 'Подробнее...' : 'Read More...')}
-       </div>
-
-       {/* Detailed Info (Expanded) */}
-       {expanded && (
-         <div style={{ marginTop: 16, borderTop: '1px solid var(--border)', paddingTop: 12 }}>
-            {/* Location */}
-            {(lang === 'ru' ? area.locationRu : area.locationEn) && (
-              <div style={{ marginBottom: 12 }}>
-                 <div style={{ fontWeight: 'bold', marginBottom: 4, fontSize: 13 }}>{lang === 'ru' ? 'Расположение' : 'Location'}</div>
-                 <div style={{ fontSize: 13, opacity: 0.8 }}>{lang === 'ru' ? area.locationRu : area.locationEn}</div>
-              </div>
-            )}
-
-            {/* Schools */}
-            {schools && Array.isArray(schools) && schools.length > 0 && (
-              <div style={{ marginBottom: 12 }}>
-                <div style={{ fontWeight: 'bold', marginBottom: 4, fontSize: 13 }}>{lang === 'ru' ? 'Школы поблизости' : 'Nearby Schools'}</div>
-                {schools.map((s: any, i: number) => (
-                  <div key={i} style={{ fontSize: 13, opacity: 0.8, marginBottom: 2 }}>• {s.name} <span style={{ opacity: 0.6 }}>({s.distance})</span></div>
-                ))}
-              </div>
-            )}
-            
-            {/* Prices Table */}
-            {prices && (
-              <div style={{ marginBottom: 12 }}>
-                 <div style={{ fontWeight: 'bold', marginBottom: 4, fontSize: 13 }}>{lang === 'ru' ? 'Цены' : 'Prices'}</div>
-                 <div style={{ display: 'grid', gap: 4 }}>
-                   {Object.entries(prices).map(([k, v]) => (
-                     <div key={k} style={{ fontSize: 13, display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border)', paddingBottom: 2 }}>
-                       <span style={{ opacity: 0.7, textTransform: 'capitalize' }}>{k.replace(/([A-Z])/g, ' $1').trim()}</span>
-                       <span style={{ fontWeight: 500 }}>{v as string}</span>
-                     </div>
-                   ))}
-                 </div>
-              </div>
-            )}
-         </div>
-       )}
-
-       {/* Footer / CTA */}
-       <div className="row" style={{ justifyContent: 'space-between', marginTop: 16, alignItems: 'center', paddingTop: 12, borderTop: '1px solid var(--border)' }}>
-          <div>
-            {priceDisplay ? (
-              <div style={{ fontWeight: 900, fontSize: 16 }}>{priceDisplay} <span style={{ color: 'var(--muted)', fontWeight: 700, fontSize: 12 }}>from</span></div>
-            ) : (
-              <div style={{ color: 'var(--muted)', fontSize: 13 }}>{lang === 'ru' ? 'Различные варианты' : 'Various options'}</div>
-            )}
-          </div>
-          <Link to={`/projects?area=${area.id}`} className="btn" style={{ padding: '8px 16px', fontSize: 14 }}>
-            {t(lang,'areas.viewProjects')}
-          </Link>
-       </div>
-    </div>
+        <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+           {area.roi && (
+             <div className="badge" style={{ fontSize: 12 }}>ROI {area.roi}</div>
+           )}
+           <div style={{ color: 'var(--accent)', fontSize: 14, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 4 }}>
+             {lang === 'ru' ? 'Подробнее' : 'Details'} <ArrowRight size={16} />
+           </div>
+        </div>
+      </div>
+    </Link>
   )
 }

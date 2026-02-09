@@ -42,7 +42,8 @@ import {
   Warehouse,
   Refrigerator,
   FileText,
-  Download
+  Download,
+  TrainFront
 } from 'lucide-react'
 
 // --- Icon Mapping ---
@@ -67,9 +68,9 @@ const AMENITY_ICONS: Record<string, any> = {
   
   pets_allowed: PawPrint,
   
-  beachfront: Trees,
+  beachfront: Waves,
   public_parks: Trees,
-  private_garden: Flower2,
+  private_garden: Trees,
   
   near_mall: ShoppingBag,
   supermarket: ShoppingBag,
@@ -78,7 +79,7 @@ const AMENITY_ICONS: Record<string, any> = {
   bbq_area: Flame,
   bbq_facility: Flame,
   
-  near_transport: Bus,
+  near_transport: TrainFront,
   
   central_ac: Fan,
   
@@ -88,15 +89,15 @@ const AMENITY_ICONS: Record<string, any> = {
   equipped_kitchen: ChefHat,
   builtin_appliances: Refrigerator,
   
-  sea_view: Mountain,
+  sea_view: Waves,
   water_view: Waves,
-  landmark_view: Building2,
+  landmark_view: MapPin,
   
   cable_tv: Tv,
-  kids_playground: Gamepad2,
+  kids_playground: Trees,
   
-  shared_spa: Droplets,
-  private_jacuzzi: Droplets,
+  shared_spa: Waves,
+  private_jacuzzi: Waves,
   
   study: BookOpen,
   

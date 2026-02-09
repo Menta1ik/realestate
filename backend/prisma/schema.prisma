@@ -214,3 +214,13 @@ model Lead {
   property  Property? @relation(fields: [propertyId], references: [id])
   createdAt DateTime @default(now())
 }
+
+// Universal Feature/Amenity Catalog
+model Feature {
+  id        String   @id @default(uuid())
+  nameEn    String
+  nameRu    String
+  icon      String   // Lucide icon name
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
