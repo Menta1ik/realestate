@@ -26,7 +26,8 @@ export default function Projects() {
     areaUnit, setAreaUnit,
     sortOrder, setSortOrder,
     toggleSort,
-    filteredProjects
+    filteredProjects,
+    loading
   } = useProjectsFilter()
 
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid')
@@ -65,6 +66,10 @@ export default function Projects() {
     }
     return t(lang,'projects.title')
   }, [areaId, collectionId, developer, lang])
+
+  if (loading) {
+    return <div className="p" style={{ padding: 20, textAlign: 'center' }}>Loading projects...</div>
+  }
 
   return (
     <div className="col" style={{ gap: 12, paddingBottom: 150 }}>

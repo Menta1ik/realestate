@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { getAreaById, tenant, genLeadId, Project } from '../data/mock'
-import { fetchProjectById } from '../api/projects'
+import { fetchPropertyById } from '../api/properties'
 import { useApp } from '../components/AppContext'
 import { t } from '../i18n'
 import { convertFromAED, formatMoney } from '../currency'
@@ -28,23 +28,19 @@ import {
   PawPrint,
   Wind,
   UserCheck,
-  Armchair,
+  BookOpen,
   Fan,
   Utensils,
   Bus,
   ChefHat,
   Mountain,
-  Palmtree,
   Tv,
   Gamepad2,
   Flame,
   Droplets,
-  BookOpen,
   Flower2,
   Warehouse,
-  Sofa,
   Refrigerator,
-  UtensilsCrossed,
   FileText,
   Download
 } from 'lucide-react'
@@ -107,18 +103,18 @@ const AMENITY_ICONS: Record<string, any> = {
   maintenance: HardHat,
 }
 
-export default function ProjectDetails() {
+export default function PropertyDetails() {
   const { lang, currency } = useApp()
-  const { projectId } = useParams()
+  const { propertyId } = useParams()
   
   const [project, setProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const loadProject = async () => {
-      if (!projectId) return
+    const loadProperty = async () => {
+      if (!propertyId) return
       try {
-        const data = await fetchProjectById(projectId)
+        const data = await fetchPropertyById(propertyId)
         setProject(data)
       } catch (error) {
         console.error(error)
@@ -126,15 +122,15 @@ export default function ProjectDetails() {
         setLoading(false)
       }
     }
-    loadProject()
-  }, [projectId])
+    loadProperty()
+  }, [propertyId])
 
   const area = project ? getAreaById(project.areaId) : null
 
   // Local state for units toggle
   const [isSqft, setIsSqft] = useState(true)
 
-  const leadId = useMemo(() => genLeadId(), [projectId])
+  const leadId = useMemo(() => genLeadId(), [propertyId])
 
   if (loading) {
     return <div className="p" style={{ padding: 20, textAlign: 'center' }}>Loading...</div>
@@ -144,7 +140,7 @@ export default function ProjectDetails() {
     return (
       <div className="card" style={{ padding: 20, textAlign: 'center' }}>
         <div className="h2">{t(lang, 'project.notFound')}</div>
-        <Link className="btn" to="/projects" style={{ marginTop: 16, display: 'inline-block' }}>
+        <Link className="btn" to="/objects" style={{ marginTop: 16, display: 'inline-block' }}>
           {t(lang, 'project.back')}
         </Link>
       </div>
@@ -159,7 +155,7 @@ export default function ProjectDetails() {
   const sizeUnit = isSqft ? 'sq.ft' : 'm²'
 
   // WhatsApp message
-  const baseText = `LeadID:${leadId} | Project:${lang === 'ru' ? project.nameRu : project.nameEn}`
+  const baseText = `LeadID:${leadId} | Property:${lang === 'ru' ? project.nameRu : project.nameEn}`
   const wa = `https://wa.me/${tenant.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(baseText)}`
 
   return (
@@ -278,40 +274,19 @@ export default function ProjectDetails() {
                  ? (isSqft ? u.sizeFromSqFt : Math.round(u.sizeFromSqFt * 0.092903))
                  : null
                
-               // Generate Property ID based on seed logic
-               const kindSanitized = u.kind.replace(/\s+/g, '').toLowerCase()
-               const propId = `prop-${project.id}-${kindSanitized}`
-               
                return (
-                 <Link 
-                   key={i} 
-                   to={`/property/${propId}`}
-                   className="card" 
-                   style={{ 
-                     padding: 16, 
-                     background: '#fff', 
-                     display: 'block',
-                     textDecoration: 'none',
-                     color: 'inherit',
-                     transition: 'transform 0.2s',
-                   }}
-                 >
+                 <div key={i} className="card" style={{ padding: 16, background: '#fff' }}>
                    <div className="row" style={{ justifyContent: 'space-between', marginBottom: 6 }}>
                      <div style={{ fontWeight: 600, fontSize: 17 }}>{t(lang, `unit.${u.kind}`)}</div>
                      <div style={{ fontWeight: 700, color: 'var(--accent)', fontSize: 17 }}>{uPrice}</div>
                    </div>
                    {uSize && (
-                     <div className="row" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                       <div className="row" style={{ gap: 6, opacity: 0.6, fontSize: 14 }}>
-                          <Maximize size={14} />
-                          {uSize} {sizeUnit}
-                       </div>
-                       <div style={{ fontSize: 14, color: 'var(--accent)', fontWeight: 500 }}>
-                         {t(lang, 'common.details')} →
-                       </div>
+                     <div className="row" style={{ gap: 6, opacity: 0.6, fontSize: 14 }}>
+                        <Maximize size={14} />
+                        {uSize} {sizeUnit}
                      </div>
                    )}
-                 </Link>
+                 </div>
                )
             })}
           </div>

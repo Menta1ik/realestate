@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { Project, PropertyType } from '../data/mock'
 import { Status, UnitKind, Currency, AreaUnit, getBudgets, getSizes } from '../components/FilterModal'
-import { fetchProjects } from '../api/projects'
+import { fetchProperties } from '../api/properties'
 
 const RATES = {
   AED: 1,
@@ -14,7 +14,7 @@ const AREA_RATES = {
   sqm: 10.764
 }
 
-export function useProjectsFilter() {
+export function usePropertiesFilter() {
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
   const [status, setStatus] = useState<Status>('All')
@@ -28,17 +28,17 @@ export function useProjectsFilter() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
 
   useEffect(() => {
-    const loadProjects = async () => {
+    const loadProperties = async () => {
       try {
-        const data = await fetchProjects()
+        const data = await fetchProperties()
         setProjects(data)
       } catch (error) {
-        console.error('Failed to fetch projects:', error)
+        console.error('Failed to fetch properties:', error)
       } finally {
         setLoading(false)
       }
     }
-    loadProjects()
+    loadProperties()
   }, [])
 
   const setCurrencyWrapped = (c: Currency) => {
@@ -105,13 +105,13 @@ export function useProjectsFilter() {
     propertyType, setPropertyType,
     unitKind, setUnitKind,
     budgetId, setBudgetId,
-    currency, setCurrency: setCurrencyWrapped,
     sizeId, setSizeId,
+    currency, setCurrency: setCurrencyWrapped,
     areaUnit, setAreaUnit: setAreaUnitWrapped,
     sortOrder, setSortOrder,
     toggleSort,
     filteredProjects,
-    viewMode, setViewMode,
-    loading
+    loading,
+    viewMode, setViewMode
   }
 }

@@ -5,7 +5,7 @@ import { useApp } from './AppContext'
 import { t } from '../i18n'
 import { convertFromAED, formatMoney } from '../currency'
 
-export function ProjectCard({ project, layout = 'horizontal' }: { project: Project; layout?: 'horizontal' | 'vertical' }) {
+export function ProjectCard({ project, layout = 'horizontal', linkPrefix = '/project' }: { project: Project; layout?: 'horizontal' | 'vertical'; linkPrefix?: string }) {
   const { lang, currency } = useApp()
   const area = getAreaById(project.areaId)
   const price = formatMoney(convertFromAED(project.priceFromAED, currency), currency)
@@ -15,7 +15,7 @@ export function ProjectCard({ project, layout = 'horizontal' }: { project: Proje
 
   return (
     <Link 
-      to={`/project/${project.id}`} 
+      to={`${linkPrefix}/${project.id}`} 
       className="card" 
       style={{ 
         padding: 12, 

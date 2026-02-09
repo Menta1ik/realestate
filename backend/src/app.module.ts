@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PrismaModule } from './prisma/prisma.module';
+import { ProjectsModule } from './projects/projects.module';
+import { PropertiesModule } from './properties/properties.module';
+import { LeadsModule } from './leads/leads.module';
+import { DevelopersModule } from './developers/developers.module';
 
 @Module({
-  imports: [],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, ProjectsModule, PropertiesModule, LeadsModule, DevelopersModule],
   controllers: [AppController],
   providers: [AppService],
 })

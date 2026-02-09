@@ -5,14 +5,17 @@ import { t } from '../i18n'
 
 export function TopBar() {
   const loc = useLocation()
-  const showBack = loc.pathname.startsWith('/project/')
+  const showBackProject = loc.pathname.startsWith('/project/')
+  const showBackProperty = loc.pathname.startsWith('/property/')
+  const showBack = showBackProject || showBackProperty
+  
   const { lang, setLang, currency, setCurrency } = useApp()
 
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(10px)', borderBottom: '1px solid var(--border)', background: 'rgba(255,255,255,0.85)' }}>
       <div style={{ maxWidth: 940, margin: '0 auto', padding: '10px 12px', display: 'flex', alignItems: 'center', gap: 10 }}>
         {showBack && (
-          <Link className="btn" to="/projects" style={{ padding: '8px 10px' }}>←</Link>
+          <Link className="btn" to={showBackProject ? "/projects" : "/objects"} style={{ padding: '8px 10px' }}>←</Link>
         )}
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 0 }}>

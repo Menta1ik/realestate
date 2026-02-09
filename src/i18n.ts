@@ -9,6 +9,8 @@ const dict: Dict = {
   'nav.projects': { en: 'Projects', ru: 'Проекты' },
   'nav.objects': { en: 'Objects', ru: 'Объекты' },
 
+  'common.details': { en: 'Details', ru: 'Подробнее' },
+
   'top.contacts': { en: 'Contacts', ru: 'Контакты' },
 
   'home.title': { en: 'UAE Property Showcase', ru: 'Витрина недвижимости ОАЭ' },
@@ -28,6 +30,9 @@ const dict: Dict = {
   'dev.subtitle': { en: 'People often search by developer (Emaar, Damac, etc.)', ru: 'Часто ищут по застройщику (Emaar, Damac и т.д.)' },
   'dev.search': { en: 'Search developer...', ru: 'Поиск застройщика...' },
   'dev.viewProjects': { en: 'View projects', ru: 'Смотреть проекты' },
+  'dev.projects': { en: 'Projects', ru: 'Проекты' },
+  'dev.sort.alpha': { en: 'Alphabetical', ru: 'По алфавиту' },
+  'dev.sort.projects': { en: 'Most projects', ru: 'По кол-ву объектов' },
 
   'projects.title': { en: 'Projects', ru: 'Проекты' },
   'projects.results': { en: 'results', ru: 'результатов' },
