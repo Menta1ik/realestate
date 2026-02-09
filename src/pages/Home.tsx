@@ -22,7 +22,8 @@ export default function Home() {
     areaUnit, setAreaUnit,
     sortOrder, setSortOrder,
     toggleSort,
-    filteredProjects
+    filteredProjects,
+    loading
   } = useProjectsFilter()
 
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid')
@@ -32,7 +33,7 @@ export default function Home() {
     <div className="col" style={{ gap: 12, paddingBottom: 150 }}>
       {/* Hero */}
       <div className="card" style={{ padding: 14 }}>
-        <h1 className="h1">{t(lang,'home.title')}</h1>
+        <h1 className="h1">{t(lang,'home.title')} (v2.1)</h1>
         <p className="p">{t(lang,'home.subtitle')}</p>
         <div className="row" style={{ marginTop: 10, gap: 10, flexWrap: 'wrap' }}>
           <Link className="btn primary" to="/projects">{t(lang,'home.browse')}</Link>
@@ -104,15 +105,23 @@ export default function Home() {
       />
 
       {/* Projects List */}
-      <div className={viewMode === 'grid' ? 'grid2' : 'col'}>
-        {filteredProjects.map((p) => (
-          <ProjectCard 
-            key={p.id} 
-            project={p} 
-            layout={viewMode === 'grid' ? 'vertical' : 'horizontal'} 
-          />
-        ))}
-      </div>
+      {loading ? (
+        <div className="p" style={{ textAlign: 'center', padding: 20 }}>Loading...</div>
+      ) : filteredProjects.length === 0 ? (
+        <div className="p" style={{ textAlign: 'center', padding: 20 }}>
+          No projects found. Check connection.
+        </div>
+      ) : (
+        <div className={viewMode === 'grid' ? 'grid2' : 'col'}>
+          {filteredProjects.map((p) => (
+            <ProjectCard 
+              key={p.id} 
+              project={p} 
+              layout={viewMode === 'grid' ? 'vertical' : 'horizontal'} 
+            />
+          ))}
+        </div>
+      )}
 
       {/* Floating Bottom Bar */}
       <BottomBar 
