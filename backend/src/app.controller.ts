@@ -37,6 +37,15 @@ export class AppController {
     }
   }
 
+  @Get('ping')
+  ping() {
+    return { 
+      message: 'pong', 
+      timestamp: new Date().toISOString(),
+      cwd: process.cwd()
+    };
+  }
+
   @UseGuards(TelegramAuthGuard)
   @Get('me')
   getMe(@Request() req) {
