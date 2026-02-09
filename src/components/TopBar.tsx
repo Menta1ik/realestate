@@ -19,10 +19,6 @@ export function TopBar() {
           <div style={{ width: 34, height: 34, borderRadius: 12, background: 'rgba(43, 108, 176, 0.1)', border: '1px solid rgba(43, 108, 176, 0.2)', color: 'var(--accent)', display: 'grid', placeItems: 'center', fontWeight: 900 }}>
             {tenant.brandShort}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
-            <div style={{ fontWeight: 850, fontSize: 13, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{tenant.brandName}</div>
-            <div style={{ fontSize: 11, color: 'var(--muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{tenant.tagline}</div>
-          </div>
         </div>
 
         <div className="row" style={{ gap: 8 }}>
