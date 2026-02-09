@@ -12,7 +12,8 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
+    "outDir": "dist-api",
     "jsx": "react-jsx",
     "strict": false,
     "experimentalDecorators": true,
@@ -20,17 +21,16 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "types": [
-      "vite/client",
       "node"
     ]
   },
   "include": [
-    "src",
     "backend/src",
     "api"
   ],
   "exclude": [
     "**/*.spec.ts",
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "src"
   ]
 }
