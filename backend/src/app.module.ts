@@ -10,6 +10,7 @@ import { PropertiesModule } from './properties/properties.module';
 import { LeadsModule } from './leads/leads.module';
 import { DevelopersModule } from './developers/developers.module';
 import { AreasModule } from './areas/areas.module';
+import { FeaturesModule } from './features/features.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { AreasModule } from './areas/areas.module';
     PropertiesModule, 
     LeadsModule, 
     DevelopersModule,
-    AreasModule
+    AreasModule,
+    FeaturesModule
   ],
   controllers: [AppController],
   providers: [AppService],
