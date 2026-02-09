@@ -4,10 +4,14 @@ import { Project, Amenity } from '../data/mock';
 export interface Developer {
   id: string;
   name: string;
+  nameEn: string;
+  nameRu: string;
   slug: string;
   year?: number;
   office?: string;
   description?: string;
+  descriptionEn?: string;
+  descriptionRu?: string;
   projects?: Project[];
 }
 

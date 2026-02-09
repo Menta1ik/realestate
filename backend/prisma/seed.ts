@@ -179,20 +179,41 @@ async function main() {
         const year = (yearStr && yearStr !== '-' && !isNaN(Number(yearStr))) ? parseInt(yearStr, 10) : null;
         
         if (slug && name) {
+          // Temporarily using same description for both languages
+          // In real app, we should have columns for both
+          const nameEn = name;
+          const nameRu = name; // TODO: Translate or separate in source
+          const descriptionEn = description;
+          const descriptionRu = description; // TODO: Translate or separate in source
+
           await prisma.developer.upsert({
             where: { slug },
             update: {
               name,
+              // @ts-ignore
+              nameEn,
+              // @ts-ignore
+              nameRu,
               year,
               office,
-              description,
+              // @ts-ignore
+              descriptionEn,
+              // @ts-ignore
+              descriptionRu,
             },
             create: {
               name,
+              // @ts-ignore
+              nameEn,
+              // @ts-ignore
+              nameRu,
               slug,
               year,
               office,
-              description,
+              // @ts-ignore
+              descriptionEn,
+              // @ts-ignore
+              descriptionRu,
             },
           });
           developersCount++;

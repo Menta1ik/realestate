@@ -13,7 +13,10 @@ export class DevelopersController {
     if (search) {
         where.OR = [
             { name: { contains: search, mode: 'insensitive' } },
-            { description: { contains: search, mode: 'insensitive' } }
+            { nameEn: { contains: search, mode: 'insensitive' } },
+            { nameRu: { contains: search, mode: 'insensitive' } },
+            { descriptionEn: { contains: search, mode: 'insensitive' } },
+            { descriptionRu: { contains: search, mode: 'insensitive' } }
         ];
     }
     

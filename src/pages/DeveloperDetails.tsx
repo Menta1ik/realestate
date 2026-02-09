@@ -31,7 +31,9 @@ export default function DeveloperDetails() {
     <div className="col" style={{ gap: 24, paddingBottom: 100 }}>
       {/* Developer Header */}
       <div className="card" style={{ padding: 20 }}>
-        <h1 className="h1" style={{ marginBottom: 12 }}>{developer.name}</h1>
+        <h1 className="h1" style={{ marginBottom: 12 }}>
+          {lang === 'ru' ? (developer.nameRu || developer.name) : (developer.nameEn || developer.name)}
+        </h1>
         
         <div className="row" style={{ gap: 24, flexWrap: 'wrap', marginBottom: 16 }}>
           {developer.year && (
@@ -61,9 +63,9 @@ export default function DeveloperDetails() {
           </div>
         </div>
 
-        {developer.description && (
+        {(developer.description || developer.descriptionEn || developer.descriptionRu) && (
           <div className="p" style={{ lineHeight: 1.6, whiteSpace: 'pre-line' }}>
-            {developer.description}
+            {lang === 'ru' ? (developer.descriptionRu || developer.description) : (developer.descriptionEn || developer.description)}
           </div>
         )}
       </div>

@@ -25,7 +25,10 @@ export default function Developers() {
     let res = developers
     const s = q.trim().toLowerCase()
     if (s) {
-      res = res.filter(d => d.name.toLowerCase().includes(s))
+      res = res.filter(d => {
+        const name = lang === 'ru' ? (d.nameRu || d.name) : (d.nameEn || d.name)
+        return name.toLowerCase().includes(s)
+      })
     }
     
     return res.sort((a, b) => {
@@ -34,9 +37,11 @@ export default function Developers() {
         const countB = b.projects?.length || 0
         if (countA !== countB) return countB - countA
       }
-      return a.name.localeCompare(b.name)
+      const nameA = lang === 'ru' ? (a.nameRu || a.name) : (a.nameEn || a.name)
+      const nameB = lang === 'ru' ? (b.nameRu || b.name) : (b.nameEn || b.name)
+      return nameA.localeCompare(nameB)
     })
-  }, [q, developers, sort])
+  }, [q, developers, sort, lang])
 
   if (loading) return <div className="p" style={{ padding: 20 }}>Loading...</div>
 
@@ -63,7 +68,9 @@ export default function Developers() {
         {filtered.map(dev => (
           <Link key={dev.id} to={`/developers/${dev.id}`} className="card" style={{ padding: 16, display: 'flex', flexDirection: 'column', height: '100%' }}>
             <div className="row" style={{ justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-              <div className="h2" style={{ fontSize: 18, lineHeight: 1.2 }}>{dev.name}</div>
+              <div className="h2" style={{ fontSize: 18, lineHeight: 1.2 }}>
+                {lang === 'ru' ? (dev.nameRu || dev.name) : (dev.nameEn || dev.name)}
+              </div>
               <div className="badge" style={{ flexShrink: 0 }}>{(dev.projects || []).length} {t(lang,'projects.results')}</div>
             </div>
             
@@ -84,9 +91,9 @@ export default function Developers() {
               </div>
             )}
 
-            {dev.description && (
+            {(dev.description || dev.descriptionEn || dev.descriptionRu) && (
               <div className="p" style={{ fontSize: 14, lineHeight: 1.4, flex: 1, marginBottom: 16, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                {dev.description}
+                {lang === 'ru' ? (dev.descriptionRu || dev.description) : (dev.descriptionEn || dev.description)}
               </div>
             )}
 

@@ -96,11 +96,14 @@ model Property {
 
 model Developer {
   id          String   @id @default(uuid())
-  name        String
+  name        String   // Keep for fallback/internal use
+  nameEn      String   @default("")
+  nameRu      String   @default("")
   slug        String   @unique
   year        Int?
   office      String?
-  description String?
+  descriptionEn String?
+  descriptionRu String?
   
   projects    Project[]
   properties  Property[]
