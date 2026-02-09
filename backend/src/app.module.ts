@@ -15,7 +15,8 @@ import { DevelopersModule } from './developers/developers.module';
     ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'dist'),
-      exclude: ['/api/(.*)'],
+      exclude: ['/api/(.*)', '/api'],
+      serveRoot: '/',
     }),
     PrismaModule, 
     ProjectsModule, 
