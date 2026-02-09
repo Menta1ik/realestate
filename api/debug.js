@@ -1,7 +1,8 @@
 
-export default function handler(req, res) {
+module.exports = (req, res) => {
   res.status(200).json({ 
-    message: "Debug endpoint working", 
-    timestamp: new Date().toISOString() 
+    message: "Debug endpoint working (CommonJS)", 
+    timestamp: new Date().toISOString(),
+    env: process.env.NODE_ENV
   });
-}
+};
