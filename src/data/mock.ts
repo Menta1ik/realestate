@@ -1,10 +1,37 @@
 export type Area = {
   id: string
+  slug?: string
   nameEn: string
   nameRu: string
-  teaserEn: string
-  teaserRu: string
-  priceFromAED: number
+  
+  // New fields
+  propertyTypeEn?: string
+  propertyTypeRu?: string
+  
+  featuresEn?: string[]
+  featuresRu?: string[]
+  
+  locationEn?: string
+  locationRu?: string
+  
+  schoolsEn?: any
+  schoolsRu?: any
+  
+  descriptionEn?: string
+  descriptionRu?: string
+  
+  developer?: string
+  
+  avgPricesEn?: any
+  avgPricesRu?: any
+  
+  nearbyAreasEn?: string[]
+  nearbyAreasRu?: string[]
+  
+  // Legacy
+  teaserEn?: string
+  teaserRu?: string
+  priceFromAED?: number
   roi?: string
 }
 
