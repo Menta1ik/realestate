@@ -28,5 +28,9 @@
     "src",
     "backend/src",
     "api"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts"
   ]
 }
