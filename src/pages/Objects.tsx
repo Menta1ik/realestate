@@ -118,9 +118,8 @@ export default function Objects() {
       </div>
 
       <BottomBar 
-        onFilterClick={() => setIsFiltersOpen(true)} 
-        onSortClick={toggleSort}
-        activeSort={sortOrder}
+        onOpenFilters={() => setIsFiltersOpen(true)} 
+        onToggleSort={toggleSort}
       />
 
       <FilterModal
