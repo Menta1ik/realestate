@@ -28,23 +28,7 @@
   ],
   "rewrites": [
     {
-      "source": "/api/debug",
-      "destination": "/api/debug"
-    },
-    {
-      "source": "/api/simple",
-      "destination": "/api/simple"
-    },
-    {
-      "source": "/api/version",
-      "destination": "/api/version"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/index"
-    },
-    {
-      "source": "/(.*)",
+      "source": "/((?!api/.*).*)",
       "destination": "/index.html"
     }
   ]
