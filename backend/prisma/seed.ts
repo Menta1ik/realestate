@@ -162,8 +162,8 @@ async function main() {
       
       for (const line of devLines) {
         const cols = line.split('|').map(c => c.trim());
-        // Expected format: | ID | Name | Slug | Year | Office | Description |
-        // cols indices: 0="", 1=ID, 2=Name, 3=Slug, 4=Year, 5=Office, 6=Description, 7=""
+        // Expected format: | ID | Name | Slug | Year | Office | DescriptionRu | DescriptionEn |
+        // cols indices: 0="", 1=ID, 2=Name, 3=Slug, 4=Year, 5=Office, 6=DescriptionRu, 7=DescriptionEn, 8=""
         
         if (cols.length < 7) continue;
         
@@ -174,17 +174,14 @@ async function main() {
         const slug = cols[3];
         const yearStr = cols[4];
         const office = cols[5] === '-' ? null : cols[5];
-        const description = cols[6] === '-' ? null : cols[6];
+        const descriptionRu = cols[6] === '-' ? null : cols[6];
+        const descriptionEn = (cols[7] && cols[7] !== '-') ? cols[7] : descriptionRu; // Fallback to Ru if En missing
         
         const year = (yearStr && yearStr !== '-' && !isNaN(Number(yearStr))) ? parseInt(yearStr, 10) : null;
         
         if (slug && name) {
-          // Temporarily using same description for both languages
-          // In real app, we should have columns for both
           const nameEn = name;
           const nameRu = name; // TODO: Translate or separate in source
-          const descriptionEn = description;
-          const descriptionRu = description; // TODO: Translate or separate in source
 
           await prisma.developer.upsert({
             where: { slug },
