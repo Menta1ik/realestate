@@ -1,16 +1,11 @@
 import { PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
+import { regionsData } from './data/regions';
 
 const prisma = new PrismaClient();
 
-const areas = [
-  { id: 'marina', slug: 'marina', nameEn: 'Dubai Marina', nameRu: 'Дубай Марина', teaserEn: 'For lifestyle & rentals', teaserRu: 'Для жизни и аренды', priceFromAED: 1100000, roi: '6–8%' },
-  { id: 'businessbay', slug: 'businessbay', nameEn: 'Business Bay', nameRu: 'Бизнес Бэй', teaserEn: 'Central, high liquidity', teaserRu: 'Центр, высокая ликвидность', priceFromAED: 900000, roi: '6–9%' },
-  { id: 'downtown', slug: 'downtown', nameEn: 'Downtown', nameRu: 'Даунтаун', teaserEn: 'Premium demand', teaserRu: 'Премиум спрос', priceFromAED: 1600000, roi: '4–6%' },
-  { id: 'jvc', slug: 'jvc', nameEn: 'JVC', nameRu: 'JVC', teaserEn: 'Affordable entry', teaserRu: 'Доступный вход', priceFromAED: 650000, roi: '7–10%' },
-  { id: 'creek', slug: 'creek', nameEn: 'Dubai Creek Harbour', nameRu: 'Dubai Creek Harbour', teaserEn: 'Growth & views', teaserRu: 'Рост и виды', priceFromAED: 1200000, roi: '5–8%' },
-];
+// regionsData imported from ./data/regions
 
 const projects = [
   {
@@ -137,17 +132,60 @@ async function main() {
 
   // 1. Seed Areas
   console.log('Seeding Areas...');
-  for (const a of areas) {
+  for (const a of regionsData) {
     await prisma.area.upsert({
       where: { id: a.id },
       update: {
         slug: a.slug,
-        teaserEn: a.teaserEn,
-        teaserRu: a.teaserRu,
-        priceFromAED: a.priceFromAED,
-        roi: a.roi
+        nameEn: a.nameEn,
+        nameRu: a.nameRu,
+        propertyTypeEn: a.propertyTypeEn,
+        propertyTypeRu: a.propertyTypeRu,
+        featuresEn: a.featuresEn,
+        featuresRu: a.featuresRu,
+        locationEn: a.locationEn,
+        locationRu: a.locationRu,
+        schoolsEn: a.schoolsEn as any, // Cast to any for Json
+        schoolsRu: a.schoolsRu as any,
+        descriptionEn: a.descriptionEn,
+        descriptionRu: a.descriptionRu,
+        developer: a.developer,
+        avgPricesEn: a.avgPricesEn as any,
+        avgPricesRu: a.avgPricesRu as any,
+        nearbyAreasEn: a.nearbyAreasEn,
+        nearbyAreasRu: a.nearbyAreasRu,
+        // Preserve legacy fields if needed or set to null/default if missing
+        // Since regionsData doesn't have them, we skip updating them or set to null
+        // teaserEn: a.teaserEn,
+        // teaserRu: a.teaserRu,
+        // priceFromAED: a.priceFromAED,
+        // roi: a.roi
       },
-      create: a,
+      create: {
+        id: a.id,
+        slug: a.slug,
+        nameEn: a.nameEn,
+        nameRu: a.nameRu,
+        propertyTypeEn: a.propertyTypeEn,
+        propertyTypeRu: a.propertyTypeRu,
+        featuresEn: a.featuresEn,
+        featuresRu: a.featuresRu,
+        locationEn: a.locationEn,
+        locationRu: a.locationRu,
+        schoolsEn: a.schoolsEn as any,
+        schoolsRu: a.schoolsRu as any,
+        descriptionEn: a.descriptionEn,
+        descriptionRu: a.descriptionRu,
+        developer: a.developer,
+        avgPricesEn: a.avgPricesEn as any,
+        avgPricesRu: a.avgPricesRu as any,
+        nearbyAreasEn: a.nearbyAreasEn,
+        nearbyAreasRu: a.nearbyAreasRu,
+        // teaserEn: a.teaserEn,
+        // teaserRu: a.teaserRu,
+        // priceFromAED: a.priceFromAED,
+        // roi: a.roi
+      },
     });
   }
 

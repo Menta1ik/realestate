@@ -164,9 +164,35 @@ model Document {
 
 model Area {
   id        String    @id @default(uuid())
+  slug      String    @unique
   nameEn    String
   nameRu    String
-  slug      String    @unique
+  
+  // Content
+  propertyTypeEn String?
+  propertyTypeRu String?
+  
+  featuresEn    String[]
+  featuresRu    String[]
+  
+  locationEn    String?
+  locationRu    String?
+  
+  schoolsEn     Json?
+  schoolsRu     Json?
+  
+  descriptionEn String?
+  descriptionRu String?
+  
+  developer     String?
+  
+  avgPricesEn   Json?
+  avgPricesRu   Json?
+  
+  nearbyAreasEn String[]
+  nearbyAreasRu String[]
+  
+  // Legacy/Simple fields
   teaserEn  String?
   teaserRu  String?
   priceFromAED Int?
