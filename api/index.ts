@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from '../backend/src/app.module.js';
+import { AppModule } from '../backend/src/app.module';
 import type { Request, Response } from 'express';
 
 export default async function handler(req: Request, res: Response) {
