@@ -5,6 +5,7 @@ import * as path from 'path';
 
 async function bootstrap() {
   console.log('Starting application...');
+  console.log('Triggering deploy for SSL check...');
   console.log('Current working directory:', process.cwd());
   
   // Fix SSL certificate path for Supabase
