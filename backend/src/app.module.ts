@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
@@ -9,7 +11,18 @@ import { LeadsModule } from './leads/leads.module';
 import { DevelopersModule } from './developers/developers.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, ProjectsModule, PropertiesModule, LeadsModule, DevelopersModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'dist'),
+      exclude: ['/api/(.*)'],
+    }),
+    PrismaModule, 
+    ProjectsModule, 
+    PropertiesModule, 
+    LeadsModule, 
+    DevelopersModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
