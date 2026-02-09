@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "start": "serve -s dist -l ${PORT:-3000}",
     "preview": "vite preview",
-    "postinstall": "prisma generate --schema=backend/prisma/schema.prisma"
+    "postinstall": "prisma generate --schema=backend/prisma/schema.prisma",
+    "db:push": "prisma db push --schema=backend/prisma/schema.prisma",
+    "db:seed": "ts-node --esm backend/prisma/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.22",
@@ -36,6 +38,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "prisma": "^6.19.2",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "vite": "^5.4.2"
   }
