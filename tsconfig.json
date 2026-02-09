@@ -15,11 +15,15 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "types": [
       "vite/client"
     ]
   },
   "include": [
-    "src"
+    "src",
+    "backend/src",
+    "api"
   ]
 }
