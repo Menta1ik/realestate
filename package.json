@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc && vite build",
     "start": "serve -s dist -l ${PORT:-3000}",
     "preview": "vite preview",
     "postinstall": "prisma generate --schema=backend/prisma/schema.prisma",
