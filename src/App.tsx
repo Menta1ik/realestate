@@ -9,6 +9,7 @@ import Objects from './pages/Objects'
 import ProjectDetails from './pages/ProjectDetails'
 import PropertyDetails from './pages/PropertyDetails'
 import Agent from './pages/Agent'
+import AdminApp from './admin/AdminApp'
 import { TopBar } from './components/TopBar'
 import { BottomNav } from './components/BottomNav'
 import { AppProvider } from './components/AppContext'
@@ -16,12 +17,13 @@ import { AppProvider } from './components/AppContext'
 export default function App() {
   const location = useLocation()
   const hideNav = location.pathname.startsWith('/project/') || location.pathname.startsWith('/property/')
+  const isAdmin = location.pathname.startsWith('/admin')
 
   return (
     <AppProvider>
       <div className="appShell">
-        <TopBar />
-        <main className="content">
+        {!isAdmin && <TopBar />}
+        <main className={isAdmin ? "" : "content"}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/areas" element={<Areas />} />
@@ -33,9 +35,10 @@ export default function App() {
             <Route path="/project/:projectId" element={<ProjectDetails />} />
             <Route path="/property/:propertyId" element={<PropertyDetails />} />
             <Route path="/agent" element={<Agent />} />
+            <Route path="/admin/*" element={<AdminApp />} />
           </Routes>
         </main>
-        {!hideNav && <BottomNav />}
+        {!hideNav && !isAdmin && <BottomNav />}
       </div>
     </AppProvider>
   )

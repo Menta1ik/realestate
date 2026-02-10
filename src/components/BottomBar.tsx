@@ -41,11 +41,9 @@ export function BottomBar({ onOpenFilters, onToggleSort }: Props) {
         className="bottomBarAvatar"
       >
           {/* Avatar placeholder */}
-          <img 
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100" 
-            alt="Agent"
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
+          <div className="w-full h-full bg-gray-200 flex items-center justify-center rounded-full">
+            <span className="text-xs text-gray-500">A</span>
+          </div>
           <div style={{ 
             position: 'absolute', 
             top: 4, 

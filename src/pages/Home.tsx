@@ -61,8 +61,8 @@ export default function Home() {
               onClick={() => setViewMode('list')}
               style={{ 
                 padding: 8, 
-                background: viewMode === 'list' ? 'var(--bg-card)' : 'transparent',
-                border: viewMode === 'list' ? '1px solid var(--border)' : 'none',
+                background: viewMode === 'list' ? 'var(--card-legacy)' : 'transparent',
+                border: viewMode === 'list' ? '1px solid var(--border-legacy)' : 'none',
                 opacity: viewMode === 'list' ? 1 : 0.5
               }}
             >
@@ -73,8 +73,8 @@ export default function Home() {
               onClick={() => setViewMode('grid')}
               style={{ 
                 padding: 8, 
-                background: viewMode === 'grid' ? 'var(--bg-card)' : 'transparent',
-                border: viewMode === 'grid' ? '1px solid var(--border)' : 'none',
+                background: viewMode === 'grid' ? 'var(--card-legacy)' : 'transparent',
+                border: viewMode === 'grid' ? '1px solid var(--border-legacy)' : 'none',
                 opacity: viewMode === 'grid' ? 1 : 0.5
               }}
             >

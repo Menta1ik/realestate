@@ -64,6 +64,7 @@ export type Project = {
   nameEn: string
   nameRu: string
   developer: string
+  developerId?: string
   status: 'Off-plan' | 'Ready'
   type: PropertyType
   handoverEn: string
@@ -74,6 +75,7 @@ export type Project = {
   tags: string[]
   descriptionEn: string
   descriptionRu: string
+  bedroomsStr?: string
   specs: {
     bedrooms: number
     bathrooms: number

@@ -11,6 +11,8 @@ import { LeadsModule } from './leads/leads.module';
 import { DevelopersModule } from './developers/developers.module';
 import { AreasModule } from './areas/areas.module';
 import { FeaturesModule } from './features/features.module';
+import { TagCategoriesModule } from './tag-categories/tag-categories.module';
+import { LayoutTypesModule } from './layout-types/layout-types.module';
 
 @Module({
   imports: [
@@ -26,7 +28,9 @@ import { FeaturesModule } from './features/features.module';
     LeadsModule, 
     DevelopersModule,
     AreasModule,
-    FeaturesModule
+    FeaturesModule,
+    TagCategoriesModule,
+    LayoutTypesModule
   ],
   controllers: [AppController],
   providers: [AppService],

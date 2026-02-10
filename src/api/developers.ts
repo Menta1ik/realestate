@@ -23,6 +23,7 @@ const mapBackendProject = (bp: any): Project => ({
   nameEn: bp.nameEn,
   nameRu: bp.nameRu,
   developer: bp.developer,
+  developerId: bp.developerId || bp.developerRel?.id,
   status: bp.status as 'Off-plan' | 'Ready',
   type: bp.type as any,
   handoverEn: bp.handoverEn,

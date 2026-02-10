@@ -12,14 +12,14 @@ export function TopBar() {
   const { lang, setLang, currency, setCurrency } = useApp()
 
   return (
-    <header style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(10px)', borderBottom: '1px solid var(--border)', background: 'rgba(255,255,255,0.85)' }}>
+    <header style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(10px)', borderBottom: '1px solid var(--border-legacy)', background: 'rgba(255,255,255,0.85)' }}>
       <div style={{ maxWidth: 940, margin: '0 auto', padding: '10px 12px', display: 'flex', alignItems: 'center', gap: 10 }}>
         {showBack && (
           <Link className="btn" to={showBackProject ? "/projects" : "/objects"} style={{ padding: '8px 10px' }}>←</Link>
         )}
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 0 }}>
-          <div style={{ width: 34, height: 34, borderRadius: 12, background: 'rgba(43, 108, 176, 0.1)', border: '1px solid rgba(43, 108, 176, 0.2)', color: 'var(--accent)', display: 'grid', placeItems: 'center', fontWeight: 900 }}>
+          <div style={{ width: 34, height: 34, borderRadius: 12, background: 'rgba(43, 108, 176, 0.1)', border: '1px solid rgba(43, 108, 176, 0.2)', color: 'var(--accent-legacy)', display: 'grid', placeItems: 'center', fontWeight: 900 }}>
             {tenant.brandShort}
           </div>
         </div>

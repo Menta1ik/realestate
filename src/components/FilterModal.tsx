@@ -159,16 +159,16 @@ export function FilterModal({
           <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <div className="label">{t(lang, 'filter.label.budget')}</div>
-              <div style={{ display: 'flex', background: 'var(--bg)', borderRadius: 8, padding: 2 }}>
+              <div style={{ display: 'flex', background: 'var(--bg-legacy)', borderRadius: 8, padding: 2 }}>
                 {currencies.map(c => (
                   <button
                     key={c}
                     onClick={() => handleSelection(() => setCurrency(c))}
                     style={{
                       border: 'none',
-                      background: currency === c ? 'var(--card)' : 'transparent',
-                      color: currency === c ? 'var(--text)' : 'var(--muted)',
-                      boxShadow: currency === c ? 'var(--shadow)' : 'none',
+                      background: currency === c ? 'var(--card-legacy)' : 'transparent',
+                      color: currency === c ? 'var(--text-legacy)' : 'var(--muted-legacy)',
+                      boxShadow: currency === c ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
                       borderRadius: 6,
                       padding: '2px 8px',
                       fontSize: 12,
@@ -194,16 +194,16 @@ export function FilterModal({
           <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <div className="label">{t(lang, 'filter.label.size')}</div>
-              <div style={{ display: 'flex', background: 'var(--bg)', borderRadius: 8, padding: 2 }}>
+              <div style={{ display: 'flex', background: 'var(--bg-legacy)', borderRadius: 8, padding: 2 }}>
                 {areaUnits.map(u => (
                   <button
                     key={u}
                     onClick={() => handleSelection(() => setAreaUnit(u))}
                     style={{
                       border: 'none',
-                      background: areaUnit === u ? 'var(--card)' : 'transparent',
-                      color: areaUnit === u ? 'var(--text)' : 'var(--muted)',
-                      boxShadow: areaUnit === u ? 'var(--shadow)' : 'none',
+                      background: areaUnit === u ? 'var(--card-legacy)' : 'transparent',
+                      color: areaUnit === u ? 'var(--text-legacy)' : 'var(--muted-legacy)',
+                      boxShadow: areaUnit === u ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
                       borderRadius: 6,
                       padding: '2px 8px',
                       fontSize: 12,
@@ -226,7 +226,7 @@ export function FilterModal({
           </div>
         </div>
 
-        <div style={{ paddingTop: 16, borderTop: '1px solid var(--border)', marginTop: 16 }}>
+        <div style={{ paddingTop: 16, borderTop: '1px solid var(--border-legacy)', marginTop: 16 }}>
           <button 
             className="btn primary" 
             style={{ width: '100%', justifyContent: 'center' }}

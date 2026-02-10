@@ -17,6 +17,17 @@ export class LeadsService {
       orderBy: { createdAt: 'desc' },
       include: {
         project: true,
+        property: true,
+      },
+    });
+  }
+
+  async findOne(id: string) {
+    return this.prisma.lead.findUnique({
+      where: { id },
+      include: {
+        project: true,
+        property: true,
       },
     });
   }

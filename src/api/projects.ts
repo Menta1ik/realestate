@@ -35,6 +35,11 @@ interface BackendProject {
     priceFromAED: number;
     roi: string;
   };
+  developerRel?: {
+    id: string;
+    name: string;
+    slug: string;
+  };
 }
 
 export const fetchProjects = async (): Promise<Project[]> => {
@@ -47,6 +52,7 @@ export const fetchProjects = async (): Promise<Project[]> => {
     nameEn: bp.nameEn,
     nameRu: bp.nameRu,
     developer: bp.developer,
+    developerId: bp.developerRel?.id,
     status: bp.status as 'Off-plan' | 'Ready',
     type: bp.type as any, // Cast to PropertyType
     handoverEn: bp.handoverEn,
@@ -57,10 +63,11 @@ export const fetchProjects = async (): Promise<Project[]> => {
     tags: bp.tags.map(t => t.name),
     descriptionEn: bp.descriptionEn,
     descriptionRu: bp.descriptionRu,
+    bedroomsStr: bp.bedrooms,
     specs: {
       bedrooms: parseInt(bp.bedrooms) || 0,
       bathrooms: parseInt(bp.bathrooms) || 0,
-      sizeSqft: parseInt(bp.size) || 0,
+      sizeSqft: parseInt(typeof bp.size === 'string' ? bp.size.replace(/[^0-9]/g, '') : bp.size) || 0,
     },
     amenities: bp.amenities.map(a => a.code as Amenity),
     photos: bp.photos.map(p => p.url),
@@ -90,6 +97,7 @@ export const fetchProjectById = async (id: string): Promise<Project | null> => {
       nameEn: bp.nameEn,
       nameRu: bp.nameRu,
       developer: bp.developer,
+      developerId: bp.developerRel?.id,
       status: bp.status as 'Off-plan' | 'Ready',
       type: bp.type as any,
       handoverEn: bp.handoverEn,
@@ -100,11 +108,12 @@ export const fetchProjectById = async (id: string): Promise<Project | null> => {
       tags: bp.tags.map(t => t.name),
       descriptionEn: bp.descriptionEn,
       descriptionRu: bp.descriptionRu,
-      specs: {
-        bedrooms: parseInt(bp.bedrooms) || 0,
-        bathrooms: parseInt(bp.bathrooms) || 0,
-        sizeSqft: parseInt(bp.size) || 0,
-      },
+      bedroomsStr: bp.bedrooms,
+        specs: {
+          bedrooms: parseInt(bp.bedrooms) || 0,
+          bathrooms: parseInt(bp.bathrooms) || 0,
+          sizeSqft: parseInt(typeof bp.size === 'string' ? bp.size.replace(/[^0-9]/g, '') : bp.size) || 0,
+        },
       amenities: bp.amenities.map(a => a.code as Amenity),
       photos: bp.photos.map(p => p.url),
       unitTypes: bp.unitTypes.map(u => ({

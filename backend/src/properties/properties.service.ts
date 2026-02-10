@@ -1,10 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma } from '@prisma/client';
+import { CreatePropertyDto } from './dto/create-property.dto';
+import { UpdatePropertyDto } from './dto/update-property.dto';
 
 @Injectable()
 export class PropertiesService {
   constructor(private prisma: PrismaService) {}
+
+  async create(createPropertyDto: CreatePropertyDto) {
+    return this.prisma.property.create({
+      data: createPropertyDto,
+    });
+  }
 
   async findAll(params: {
     skip?: number;
@@ -42,6 +50,19 @@ export class PropertiesService {
         unitTypes: true,
         documents: true,
       },
+    });
+  }
+
+  async update(id: string, updatePropertyDto: UpdatePropertyDto) {
+    return this.prisma.property.update({
+      where: { id },
+      data: updatePropertyDto,
+    });
+  }
+
+  async remove(id: string) {
+    return this.prisma.property.delete({
+      where: { id },
     });
   }
 }

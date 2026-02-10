@@ -1,32 +1,108 @@
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+ 
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* --- Original Styles (Legacy/Public Site) --- */
+/* Renamed conflicting variables with -legacy suffix */
+
 :root{
-  --bg: #f5f7fa;
-  --card: #ffffff;
-  --card2: #ffffff;
-  --text: #1a202c;
-  --muted: #718096;
-  --accent: #C6A87C; /* Beige/Gold from design */
-  --accent-light: #D4B895;
-  --danger: #e53e3e;
-  --border: rgba(0,0,0,0.08);
-  --shadow: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-float: 0 4px 20px rgba(0,0,0,0.15);
+  --bg-legacy: #f5f7fa;
+  --card-legacy: #ffffff;
+  --card2-legacy: #ffffff;
+  --text-legacy: #1a202c;
+  --muted-legacy: #718096;
+  --accent-legacy: #C6A87C; /* Beige/Gold from design */
+  --accent-light-legacy: #D4B895;
+  --accent-rgb-legacy: 198, 168, 124;
+  --bg-secondary-legacy: #edf2f7;
+  --danger-legacy: #e53e3e;
+  --border-legacy: rgba(0,0,0,0.08);
+  --shadow-legacy: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-float-legacy: 0 4px 20px rgba(0,0,0,0.15);
 }
 
-*{ box-sizing: border-box; }
-html, body { height: 100%; }
-body{
-  margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  background: var(--bg);
-  color: var(--text);
-}
+/* Not applying global reset to body generally to avoid overriding Tailwind, 
+   but specific classes below should work */
 
-a{ color: inherit; text-decoration: none; }
-
-.appShell{
+.appShell {
   min-height: 100vh;
   display:flex;
   flex-direction: column;
+  background: var(--bg-legacy);
+  color: var(--text-legacy);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
 }
 
 .content{
@@ -38,10 +114,10 @@ a{ color: inherit; text-decoration: none; }
 }
 
 .card{
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: var(--card-legacy);
+  border: 1px solid var(--border-legacy);
   border-radius: 16px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-legacy);
 }
 
 .row{ display:flex; gap: 10px; align-items:center; }
@@ -49,30 +125,52 @@ a{ color: inherit; text-decoration: none; }
 
 .h1{ font-size: 22px; font-weight: 800; margin: 0; letter-spacing: 0.2px; color: #1a202c; }
 .h2{ font-size: 16px; font-weight: 750; margin: 0; color: #2d3748; }
-.p{ font-size: 13px; line-height: 1.4; margin: 0; color: var(--muted); }
+.p{ font-size: 13px; line-height: 1.4; margin: 0; color: var(--muted-legacy); }
 
 .chips{ display:flex; gap: 8px; flex-wrap: wrap; }
 .chip{
   padding: 8px 10px;
   border-radius: 999px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-legacy);
   background: #fff;
   font-size: 12px;
-  color: var(--text);
+  color: var(--text-legacy);
   cursor:pointer;
   transition: all 0.2s;
 }
 .chip[aria-pressed="true"]{
-  border-color: var(--accent);
+  border-color: var(--accent-legacy);
   background: #ebf8ff;
-  color: var(--accent);
+  color: var(--accent-legacy);
   font-weight: 600;
 }
 
+.badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--bg-legacy);
+  color: var(--muted-legacy);
+  font-size: 10px;
+  font-weight: 600;
+  border: 1px solid var(--border-legacy);
+}
+
+.hr {
+  height: 1px;
+  background: var(--border-legacy);
+  margin: 16px 0;
+  width: 100%;
+}
+
 .btn{
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-legacy);
   background: #fff;
-  color: var(--text);
+  color: var(--text-legacy);
   border-radius: 12px;
   padding: 10px 12px;
   font-weight: 700;
@@ -80,14 +178,28 @@ a{ color: inherit; text-decoration: none; }
   transition: all 0.2s;
 }
 .btn.primary{
-  border-color: var(--accent);
-  background: var(--accent);
+  border-color: var(--accent-legacy);
+  background: var(--accent-legacy);
   color: #fff;
 }
 .btn.danger{
-  border-color: var(--danger);
+  border-color: var(--danger-legacy);
   background: #fff5f5;
-  color: var(--danger);
+  color: var(--danger-legacy);
+}
+
+.input {
+  border: 1px solid var(--border-legacy);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text-legacy);
+  font-size: 14px;
+  padding: 10px;
+  outline: none;
+  -webkit-appearance: none;
+}
+.input:focus {
+  border-color: var(--accent-legacy);
 }
 
 .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -98,105 +210,106 @@ a{ color: inherit; text-decoration: none; }
   .grid4{ grid-template-columns: 1fr 1fr; }
 }
 
-.input{
-  width: 100%;
-  padding: 12px 12px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: #fff;
-  color: var(--text);
-  outline: none;
-}
-.label{ font-size: 12px; color: var(--muted); margin: 0 0 6px; }
+/* --- Mobile App Specific Styles --- */
 
-.hr{ height: 1px; background: var(--border); border: 0; margin: 10px 0; }
-
-.badges{ display:flex; gap: 6px; flex-wrap: wrap; }
-.badge{
-  font-size: 11px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: #f7fafc;
-  color: var(--muted);
-  font-weight: 600;
-}
-
-.modalOverlay{
-  position: fixed;
-  inset:0;
-  background: rgba(0,0,0,0.4);
-  display:flex;
-  align-items: flex-end;
-  justify-content:center;
-  padding: 12px;
-  z-index: 50;
-  backdrop-filter: blur(2px);
-}
-.modal{
-  width: 100%;
-  max-width: 940px;
-  border-radius: 18px 18px 0 0;
-  border: 1px solid var(--border);
-  background: #fff;
-  box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
-  padding: 14px;
-}
-
-/* Bottom Bar Styles */
 .bottomBar {
   position: fixed;
-  bottom: 100px;
+  bottom: 90px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 40;
   display: flex;
   gap: 12px;
-  align-items: center;
-  width: 90%;
-  max-width: 400px;
+  z-index: 110;
+  padding: 0 16px;
+  width: 100%;
+  max-width: 480px;
+  pointer-events: none;
+}
+.bottomBar > * {
+  pointer-events: auto;
 }
 
 .bottomBarBtn {
-  border: none;
-  border-radius: 14px;
-  height: 48px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-float);
-  cursor: pointer;
-  color: #fff;
-  font-weight: 700;
+  gap: 8px;
+  height: 48px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   transition: transform 0.1s;
+  border: none;
+  cursor: pointer;
 }
-
 .bottomBarBtn:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 
 .bottomBarBtn.primary {
+  background: #1a202c; 
+  color: #fff;
   flex: 1;
-  background: var(--accent);
-  font-size: 14px;
-  gap: 8px;
+  justify-content: center;
 }
 
 .bottomBarBtn.secondary {
+  background: #fff;
+  color: #1a202c;
   width: 48px;
-  background: var(--accent-light);
+  padding: 0;
+  justify-content: center;
 }
 
 .bottomBarAvatar {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  border: 2px solid #fff;
-  box-shadow: var(--shadow-float);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: #fff;
   position: relative;
+  display: block;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  animation: fadeIn 0.2s;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  padding: 24px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a202c;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.hover-underline:hover {
+  text-decoration: underline;
 }

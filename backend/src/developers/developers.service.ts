@@ -1,10 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma } from '@prisma/client';
+import { CreateDeveloperDto } from './dto/create-developer.dto';
+import { UpdateDeveloperDto } from './dto/update-developer.dto';
 
 @Injectable()
 export class DevelopersService {
   constructor(private prisma: PrismaService) {}
+
+  async create(createDeveloperDto: CreateDeveloperDto) {
+    return this.prisma.developer.create({
+      data: createDeveloperDto,
+    });
+  }
 
   async findAll(params: {
     skip?: number;
@@ -50,6 +58,19 @@ export class DevelopersService {
               }
             }
         }
+    });
+  }
+
+  async update(id: string, updateDeveloperDto: UpdateDeveloperDto) {
+    return this.prisma.developer.update({
+      where: { id },
+      data: updateDeveloperDto,
+    });
+  }
+
+  async remove(id: string) {
+    return this.prisma.developer.delete({
+      where: { id },
     });
   }
 }

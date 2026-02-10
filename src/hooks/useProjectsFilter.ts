@@ -57,7 +57,24 @@ export function useProjectsFilter() {
       if (propertyType !== 'all' && p.type !== propertyType) return false
       if (unitKind !== 'Any') {
         const hasUnit = p.unitTypes.some(u => u.kind === unitKind)
-        if (!hasUnit) return false
+        
+        if (!hasUnit) {
+          let matchesStr = false
+          if (p.bedroomsStr) {
+            let target = ''
+            if (unitKind === 'Studio') target = 'Studio'
+            else if (unitKind === '1BR') target = '1'
+            else if (unitKind === '2BR') target = '2'
+            else if (unitKind === '3BR') target = '3'
+            
+            if (target) {
+              const parts = p.bedroomsStr.split(',').map(s => s.trim())
+              if (parts.includes(target)) matchesStr = true
+            }
+          }
+          
+          if (!matchesStr) return false
+        }
       }
       
       const budgets = getBudgets(currency)

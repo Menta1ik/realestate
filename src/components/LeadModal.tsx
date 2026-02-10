@@ -78,7 +78,7 @@ export function LeadModal({ open, onClose, project }: Props) {
           <textarea className="input" style={{ minHeight: 84, resize: 'vertical' }} value={note} onChange={(e) => setNote(e.target.value)} placeholder="Budget, move-in date, purpose, etc." />
         </div>
 
-        <label style={{ display: 'flex', gap: 10, marginTop: 10, color: 'var(--muted)', fontSize: 12 }}>
+        <label style={{ display: 'flex', gap: 10, marginTop: 10, color: 'var(--muted-legacy)', fontSize: 12 }}>
           <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
           I agree to be contacted and to the processing of my data.
         </label>

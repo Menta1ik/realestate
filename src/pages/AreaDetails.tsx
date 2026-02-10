@@ -108,7 +108,7 @@ export default function AreaDetails() {
         </div>
 
         {area.roi && (
-          <div style={{ marginTop: 16, display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(var(--accent-rgb), 0.1)', color: 'var(--accent)', padding: '6px 12px', borderRadius: 8, fontWeight: 600, fontSize: 14 }}>
+          <div style={{ marginTop: 16, display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(var(--accent-rgb-legacy), 0.1)', color: 'var(--accent-legacy)', padding: '6px 12px', borderRadius: 8, fontWeight: 600, fontSize: 14 }}>
             <Wallet size={16} />
             ROI {area.roi}
           </div>
@@ -129,7 +129,7 @@ export default function AreaDetails() {
               <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 8 }}>{lang === 'ru' ? 'Рядом:' : 'Nearby:'}</div>
               <div className="row" style={{ flexWrap: 'wrap', gap: 8 }}>
                 {nearby.map((n, i) => (
-                  <span key={i} style={{ background: 'var(--bg-secondary)', padding: '4px 10px', borderRadius: 6, fontSize: 13 }}>
+                  <span key={i} style={{ background: 'var(--bg-secondary-legacy)', padding: '4px 10px', borderRadius: 6, fontSize: 13 }}>
                     {n}
                   </span>
                 ))}
@@ -166,7 +166,7 @@ export default function AreaDetails() {
           </div>
           <div className="col" style={{ gap: 12 }}>
             {schools.map((s: any, i: number) => (
-              <div key={i} style={{ padding: 12, background: 'var(--bg-secondary)', borderRadius: 8 }}>
+              <div key={i} style={{ padding: 12, background: 'var(--bg-secondary-legacy)', borderRadius: 8 }}>
                 <div style={{ fontWeight: 500, marginBottom: 4 }}>{s.name}</div>
                 <div style={{ fontSize: 13, opacity: 0.7 }}>{s.distance}</div>
               </div>
@@ -184,7 +184,7 @@ export default function AreaDetails() {
           </div>
           <div className="col" style={{ gap: 10 }}>
             {Object.entries(prices).map(([k, v]) => (
-              <div key={k} className="row" style={{ justifyContent: 'space-between', paddingBottom: 8, borderBottom: '1px solid var(--border)' }}>
+              <div key={k} className="row" style={{ justifyContent: 'space-between', paddingBottom: 8, borderBottom: '1px solid var(--border-legacy)' }}>
                 <span style={{ opacity: 0.8, textTransform: 'capitalize' }}>
                   {k === 'oneBed' ? '1 Bed' : 
                    k === 'twoBed' ? '2 Bed' : 

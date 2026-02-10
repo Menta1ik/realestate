@@ -133,7 +133,7 @@ function AreaTile({ area, lang }: { area: Area, lang: 'en'|'ru' }) {
            {area.roi && (
              <div className="badge" style={{ fontSize: 12 }}>ROI {area.roi}</div>
            )}
-           <div style={{ color: 'var(--accent)', fontSize: 14, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 4 }}>
+           <div style={{ color: 'var(--accent-legacy)', fontSize: 14, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 4 }}>
              {lang === 'ru' ? 'Подробнее' : 'Details'} <ArrowRight size={16} />
            </div>
         </div>

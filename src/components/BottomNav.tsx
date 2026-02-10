@@ -13,7 +13,7 @@ const linkStyle = ({ isActive }: { isActive: boolean }) => ({
   padding: '8px 2px',
   borderRadius: 8,
   background: 'transparent',
-  color: isActive ? 'var(--accent)' : 'var(--muted)',
+  color: isActive ? 'var(--accent-legacy)' : 'var(--muted-legacy)',
   textDecoration: 'none',
   fontSize: 10,
   fontWeight: isActive ? 700 : 500,
@@ -29,7 +29,7 @@ export function BottomNav() {
       right: 0, 
       bottom: 0, 
       padding: '6px 0 20px 0', 
-      borderTop: '1px solid var(--border)', 
+      borderTop: '1px solid var(--border-legacy)', 
       background: 'rgba(255,255,255,0.95)', 
       backdropFilter: 'blur(10px)', 
       zIndex: 100 

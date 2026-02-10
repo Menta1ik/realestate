@@ -3,6 +3,7 @@ import { useMemo, useState, useEffect } from 'react'
 import { useApp } from '../components/AppContext'
 import { t } from '../i18n'
 import { fetchDevelopers, Developer } from '../api/developers'
+import { Calendar, MapPin } from 'lucide-react'
 
 export default function Developers() {
   const { lang } = useApp()
@@ -75,16 +76,16 @@ export default function Developers() {
             </div>
             
             {(dev.year || dev.office) && (
-              <div className="row" style={{ gap: 12, fontSize: 13, color: 'var(--text)', opacity: 0.7, marginBottom: 12 }}>
+              <div className="row" style={{ gap: 12, fontSize: 13, color: 'var(--text-legacy)', opacity: 0.7, marginBottom: 12 }}>
                  {dev.year && (
-                   <div className="row" style={{ gap: 4 }}>
-                     <span>📅</span>
+                   <div className="row" style={{ gap: 4, alignItems: 'center' }}>
+                     <Calendar size={14} strokeWidth={1.5} />
                      <span>{dev.year}</span>
                    </div>
                  )}
                  {dev.office && (
-                   <div className="row" style={{ gap: 4 }}>
-                     <span>📍</span>
+                   <div className="row" style={{ gap: 4, alignItems: 'center' }}>
+                     <MapPin size={14} strokeWidth={1.5} />
                      <span>{dev.office}</span>
                    </div>
                  )}

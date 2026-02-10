@@ -22,7 +22,7 @@ export default function Agent() {
               borderRadius: 18,
               background: 'rgba(43, 108, 176, 0.1)',
               border: '1px solid rgba(43, 108, 176, 0.2)',
-              color: 'var(--accent)',
+              color: 'var(--accent-legacy)',
               display: 'grid',
               placeItems: 'center',
               fontWeight: 950,

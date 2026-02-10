@@ -1,21 +1,29 @@
-import { Controller, Get, Query, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Query, Res } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
+import { CreateProjectDto } from './dto/create-project.dto';
+import { UpdateProjectDto } from './dto/update-project.dto';
+import { Response } from 'express';
 import { Prisma } from '@prisma/client';
-import { TelegramAuthGuard } from '../guards/telegram-auth.guard';
 
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
+  @Post()
+  create(@Body() createProjectDto: CreateProjectDto) {
+    return this.projectsService.create(createProjectDto);
+  }
+
   @Get()
-  findAll(
-    @Query('search') search?: string,
-    @Query('status') status?: string,
-    @Query('type') type?: string,
-    @Query('minPrice') minPrice?: string,
-    @Query('maxPrice') maxPrice?: string,
-    @Query('bedrooms') bedrooms?: string,
-    @Query('sort') sort?: string, // price_asc, price_desc
+  async findAll(
+    @Query('search') search: string,
+    @Query('status') status: string,
+    @Query('type') type: string,
+    @Query('minPrice') minPrice: string,
+    @Query('maxPrice') maxPrice: string,
+    @Query('bedrooms') bedrooms: string,
+    @Query('sort') sort: string,
+    @Res() res: Response
   ) {
     const where: Prisma.ProjectWhereInput = {
       AND: [],
@@ -26,7 +34,7 @@ export class ProjectsController {
     if (search) {
       and.push({
         OR: [
-          { nameEn: { contains: search } }, // SQLite is case-sensitive by default usually, but Prisma handles insensitive?
+          { nameEn: { contains: search } }, 
           { nameRu: { contains: search } },
           { developer: { contains: search } },
           { ref: { contains: search } },
@@ -35,7 +43,7 @@ export class ProjectsController {
     }
 
     if (status && status !== 'all') {
-      and.push({ status: { equals: status } }); // Make sure case matches or handle mapping
+      and.push({ status: { equals: status } });
     }
 
     if (type) {
@@ -51,13 +59,9 @@ export class ProjectsController {
     }
 
     if (bedrooms) {
-       // "bedrooms" in DB is string "1, 2, 3".
-       // If user filters for "2", we check if string contains "2".
-       // Note: this is a simple naive search. Better to store as array or normalize.
        if (bedrooms === 'studio') {
          and.push({ bedrooms: { contains: 'Studio' } });
        } else if (bedrooms === '4+') {
-          // Complex logic, maybe just search for 4, 5, 6...
           and.push({
              OR: [
                { bedrooms: { contains: '4' } },
@@ -77,17 +81,31 @@ export class ProjectsController {
     } else if (sort === 'price_desc') {
       orderBy.priceFromAED = 'desc';
     } else {
-      orderBy.createdAt = 'desc'; // Default
+      orderBy.createdAt = 'desc';
     }
 
-    return this.projectsService.findAll({
+    const projects = await this.projectsService.findAll({
       where,
       orderBy,
     });
+    
+    res.set('Content-Range', `projects 0-${projects.length}/${projects.length}`);
+    res.set('Access-Control-Expose-Headers', 'Content-Range');
+    return res.json(projects);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.projectsService.findOne(id);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
+    return this.projectsService.update(id, updateProjectDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.projectsService.remove(id);
   }
 }

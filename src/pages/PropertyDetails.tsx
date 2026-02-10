@@ -221,7 +221,7 @@ export default function PropertyDetails() {
             </h1>
             <div style={{ 
               fontSize: 12, 
-              color: 'var(--muted)', 
+              color: 'var(--muted-legacy)', 
               background: '#f0f0f0', 
               padding: '4px 8px', 
               borderRadius: 6,
@@ -233,7 +233,7 @@ export default function PropertyDetails() {
               {t(lang, 'project.ref')}: {project.ref}
             </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--muted)', fontSize: 15, marginTop: 6 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--muted-legacy)', fontSize: 15, marginTop: 6 }}>
             <Building2 size={16} />
             <span>{project.developer}</span>
           </div>
@@ -276,10 +276,10 @@ export default function PropertyDetails() {
                  : null
                
                return (
-                 <div key={i} className="card" style={{ padding: 16, background: '#fff' }}>
+                 <div key={i} className="card" style={{ padding: 16, background: 'var(--card-legacy)' }}>
                    <div className="row" style={{ justifyContent: 'space-between', marginBottom: 6 }}>
                      <div style={{ fontWeight: 600, fontSize: 17 }}>{t(lang, `unit.${u.kind}`)}</div>
-                     <div style={{ fontWeight: 700, color: 'var(--accent)', fontSize: 17 }}>{uPrice}</div>
+                     <div style={{ fontWeight: 700, color: 'var(--accent-legacy)', fontSize: 17 }}>{uPrice}</div>
                    </div>
                    {uSize && (
                      <div className="row" style={{ gap: 6, opacity: 0.6, fontSize: 14 }}>
@@ -298,13 +298,13 @@ export default function PropertyDetails() {
           <div className="row" style={{ justifyContent: 'space-between' }}>
             <div>
               <div className="muted" style={{ fontSize: 12, textTransform: 'uppercase', marginBottom: 6, letterSpacing: '0.05em' }}>{t(lang, 'project.paymentPlan')}</div>
-              <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--text)' }}>
+              <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--text-legacy)' }}>
                 {lang === 'ru' ? project.paymentPlanRu : project.paymentPlanEn}
               </div>
             </div>
-            <div style={{ textAlign: 'right', paddingLeft: 20, borderLeft: '1px solid var(--border)' }}>
+            <div style={{ textAlign: 'right', paddingLeft: 20, borderLeft: '1px solid var(--border-legacy)' }}>
               <div className="muted" style={{ fontSize: 12, textTransform: 'uppercase', marginBottom: 6, letterSpacing: '0.05em' }}>{t(lang, 'project.handover')}</div>
-              <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--text)' }}>
+              <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-legacy)' }}>
                 {lang === 'ru' ? project.handoverRu : project.handoverEn}
               </div>
             </div>
@@ -314,7 +314,7 @@ export default function PropertyDetails() {
         {/* 5. Description */}
         <div style={{ marginTop: 36 }}>
           <div className="h2" style={{ marginBottom: 16 }}>{t(lang, 'project.about')}</div>
-          <div className="p" style={{ lineHeight: 1.7, opacity: 0.9, fontSize: 15, color: 'var(--text)' }}>
+          <div className="p" style={{ lineHeight: 1.7, opacity: 0.9, fontSize: 15, color: 'var(--text-legacy)' }}>
             {lang === 'ru' ? project.descriptionRu : project.descriptionEn}
           </div>
           
@@ -325,7 +325,7 @@ export default function PropertyDetails() {
                 padding: '6px 12px', 
                 borderRadius: 20, 
                 background: '#edf2f7', 
-                color: 'var(--muted)',
+                color: 'var(--muted-legacy)',
                 fontWeight: 600
               }}>
                 #{tag}
@@ -341,8 +341,8 @@ export default function PropertyDetails() {
             {project.amenities.map(key => {
               const Icon = AMENITY_ICONS[key] || CheckCircle2
               return (
-                <div key={key} className="row" style={{ gap: 12, padding: 14, background: '#fff', borderRadius: 12, border: '1px solid var(--border)', boxShadow: 'var(--shadow)' }}>
-                  <Icon size={20} color="var(--accent)" />
+                <div key={key} className="row" style={{ gap: 12, padding: 14, background: 'var(--card-legacy)', borderRadius: 12, border: '1px solid var(--border-legacy)', boxShadow: 'var(--shadow-legacy)' }}>
+                  <Icon size={20} color="var(--accent-legacy)" />
                   <span style={{ fontSize: 14, fontWeight: 500 }}>{t(lang, `amenity.${key}`)}</span>
                 </div>
               )
@@ -364,12 +364,12 @@ export default function PropertyDetails() {
                   className="row" 
                   style={{ 
                     padding: 16, 
-                    background: '#fff', 
+                    background: 'var(--card-legacy)', 
                     borderRadius: 14, 
-                    border: '1px solid var(--border)', 
+                    border: '1px solid var(--border-legacy)', 
                     textDecoration: 'none',
                     justifyContent: 'space-between',
-                    boxShadow: 'var(--shadow)'
+                    boxShadow: 'var(--shadow-legacy)'
                   }}
                 >
                   <div className="row" style={{ gap: 12 }}>
@@ -383,13 +383,13 @@ export default function PropertyDetails() {
                       <FileText size={20} />
                     </div>
                     <div>
-                      <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--text)' }}>
+                      <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--text-legacy)' }}>
                         {lang === 'ru' ? doc.labelRu : doc.labelEn}
                       </div>
-                      <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>PDF</div>
+                      <div style={{ fontSize: 12, color: 'var(--muted-legacy)', marginTop: 2 }}>PDF</div>
                     </div>
                   </div>
-                  <div style={{ color: 'var(--accent)' }}>
+                  <div style={{ color: 'var(--accent-legacy)' }}>
                     <Download size={20} />
                   </div>
                 </a>
@@ -407,7 +407,7 @@ export default function PropertyDetails() {
         padding: '12px 16px 24px',
         background: 'rgba(255,255,255,0.85)',
         backdropFilter: 'blur(12px)',
-        borderTop: '1px solid var(--border)',
+        borderTop: '1px solid var(--border-legacy)',
         zIndex: 50,
         display: 'flex',
         justifyContent: 'center',
@@ -429,7 +429,7 @@ export default function PropertyDetails() {
             fontSize: 15,
             fontWeight: 700,
             borderRadius: 12,
-            background: 'var(--accent)',
+            background: 'var(--accent-legacy)',
             color: '#fff',
             boxShadow: '0 4px 12px rgba(43, 108, 176, 0.3)'
           }}
@@ -448,9 +448,9 @@ function SpecItem({ icon, label, value, onClick, isActionable }: any) {
       onClick={onClick}
       style={{ 
         padding: 16, 
-        background: '#fff', 
+        background: 'var(--card-legacy)', 
         borderRadius: 16, 
-        border: '1px solid var(--border)',
+        border: '1px solid var(--border-legacy)',
         cursor: isActionable ? 'pointer' : 'default',
         transition: 'all 0.2s',
         display: 'flex',
@@ -458,13 +458,13 @@ function SpecItem({ icon, label, value, onClick, isActionable }: any) {
         alignItems: 'center',
         textAlign: 'center',
         gap: 8,
-        boxShadow: 'var(--shadow)'
+        boxShadow: 'var(--shadow-legacy)'
       }}
     >
-      <div style={{ opacity: 0.7, color: 'var(--accent)' }}>{icon}</div>
+      <div style={{ opacity: 0.7, color: 'var(--accent-legacy)' }}>{icon}</div>
       <div>
-        <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 4 }}>{label}</div>
-        <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--text)' }}>{value}</div>
+        <div style={{ fontSize: 12, color: 'var(--muted-legacy)', marginBottom: 4 }}>{label}</div>
+        <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-legacy)' }}>{value}</div>
       </div>
     </div>
   )
