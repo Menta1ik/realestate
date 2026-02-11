@@ -7,10 +7,22 @@ const prisma = new PrismaClient();
 
 // regionsData imported from ./data/regions
 
+function getUnitTypeAbbreviation(kind: string): string {
+  const map: Record<string, string> = {
+    'Townhouse': 'TWH',
+    'Studio': 'STD',
+    'Apartment': 'APT',
+    'Villa': 'VIL',
+    'Penthouse': 'PH',
+    'Duplex': 'DPX',
+  };
+  return map[kind] || kind.toUpperCase();
+}
+
 const projects = [
   {
     id: 'celesto4',
-    ref: 'CL-0041',
+    ref: 'CL0041',
     areaId: 'businessbay',
     nameEn: 'Celesto 4',
     nameRu: 'Celesto 4',
@@ -50,7 +62,7 @@ const projects = [
   },
   {
     id: 'marina-heights',
-    ref: 'MH-9201',
+    ref: 'MH9201',
     areaId: 'marina',
     nameEn: 'Marina Heights',
     nameRu: 'Marina Heights',
@@ -89,7 +101,7 @@ const projects = [
   },
   {
     id: 'jvc-skyline',
-    ref: 'JV-8823',
+    ref: 'JV8823',
     areaId: 'jvc',
     nameEn: 'JVC Skyline',
     nameRu: 'JVC Skyline',
@@ -300,6 +312,7 @@ async function main() {
       update: {
         developerId: devId,
         developer: devName,
+        ref: p.ref,
       },
       create: {
         ...rest,
@@ -359,7 +372,9 @@ async function main() {
       // Create a unique suffix for ID and Ref
       const kindSanitized = u.kind.replace(/\s+/g, '').toLowerCase();
       const propId = `prop-${p.id}-${kindSanitized}`;
-      const propRef = `PROP-${p.ref}-${u.kind.toUpperCase()}`;
+      
+      const kindAbbr = getUnitTypeAbbreviation(u.kind);
+      const propRef = `UNT-${p.ref}-${kindAbbr}`;
       
       // Determine bedrooms string based on unit kind
       let bedroomsStr = specs.bedrooms.toString();
@@ -374,6 +389,7 @@ async function main() {
         update: {
           developerId: devId,
           developer: devName,
+          ref: propRef,
         },
         create: {
           ...rest,

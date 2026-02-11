@@ -102,12 +102,7 @@ export default function Objects() {
         </div>
       </div>
 
-      <div style={{ 
-        display: viewMode === 'grid' ? 'grid' : 'flex',
-        gridTemplateColumns: '1fr 1fr',
-        flexDirection: 'column',
-        gap: 12 
-      }}>
+      <div className={viewMode === 'grid' ? 'grid2' : 'col'}>
         {finalFiltered.map(p => (
           <ProjectCard 
             key={p.id} 
