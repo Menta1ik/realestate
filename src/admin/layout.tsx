@@ -2,21 +2,29 @@ import React from "react";
 import { useMenu, useNavigation, useGo } from "@refinedev/core";
 import { Link, Outlet } from "react-router-dom";
 import { cn } from "../lib/utils";
-import { LayoutDashboard, Users, Building, MapPin, Tag, MessageSquare } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { 
+  DashboardSquare01Icon, 
+  UserGroupIcon, 
+  Building03Icon, 
+  Location01Icon, 
+  Tag01Icon, 
+  Comment01Icon 
+} from "@hugeicons/core-free-icons";
 
 export const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { menuItems, selectedKey } = useMenu();
   const go = useGo();
 
   const iconMap: Record<string, React.ReactNode> = {
-    dashboard: <LayoutDashboard className="h-4 w-4 mr-2" />,
-    developers: <Users className="h-4 w-4 mr-2" />,
-    projects: <Building className="h-4 w-4 mr-2" />,
-    properties: <Building className="h-4 w-4 mr-2" />,
-    areas: <MapPin className="h-4 w-4 mr-2" />,
-    "tag-categories": <Tag className="h-4 w-4 mr-2" />,
-    features: <Tag className="h-4 w-4 mr-2" />,
-    leads: <MessageSquare className="h-4 w-4 mr-2" />,
+    dashboard: <HugeiconsIcon icon={DashboardSquare01Icon} className="h-4 w-4 mr-2" />,
+    developers: <HugeiconsIcon icon={UserGroupIcon} className="h-4 w-4 mr-2" />,
+    projects: <HugeiconsIcon icon={Building03Icon} className="h-4 w-4 mr-2" />,
+    properties: <HugeiconsIcon icon={Building03Icon} className="h-4 w-4 mr-2" />,
+    areas: <HugeiconsIcon icon={Location01Icon} className="h-4 w-4 mr-2" />,
+    "tag-categories": <HugeiconsIcon icon={Tag01Icon} className="h-4 w-4 mr-2" />,
+    features: <HugeiconsIcon icon={Tag01Icon} className="h-4 w-4 mr-2" />,
+    leads: <HugeiconsIcon icon={Comment01Icon} className="h-4 w-4 mr-2" />,
   };
 
   return (
@@ -24,7 +32,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-64 flex-col border-r bg-background sm:flex">
         <div className="flex h-16 items-center border-b px-6">
           <Link to="/admin" className="flex items-center gap-2 font-semibold">
-            <Building className="h-6 w-6" />
+            <HugeiconsIcon icon={Building03Icon} className="h-6 w-6" />
             <span className="">Real Estate Admin</span>
           </Link>
         </div>
@@ -38,7 +46,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
                         selectedKey === item.key ? "bg-muted text-primary" : "text-muted-foreground"
                     )}
                 >
-                    {iconMap[item.key as string] || <Tag className="h-4 w-4 mr-2" />}
+                    {iconMap[item.key as string] || <HugeiconsIcon icon={Tag01Icon} className="h-4 w-4 mr-2" />}
                     {item.label}
                 </Link>
             ))}

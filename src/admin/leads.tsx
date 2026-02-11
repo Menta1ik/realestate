@@ -12,7 +12,8 @@ import {
   TableRow,
 } from "./components/ui/table";
 import { Button } from "./components/ui/button";
-import { Trash, Edit } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { PencilEdit02Icon, Delete02Icon } from "@hugeicons/core-free-icons";
 import {
     Form,
     FormControl,
@@ -73,7 +74,7 @@ export const LeadList = () => {
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-2">
                     <Button variant="ghost" size="icon" onClick={() => edit("leads", lead.id)}>
-                      <Edit className="h-4 w-4" />
+                      <HugeiconsIcon icon={PencilEdit02Icon} className="h-4 w-4" />
                     </Button>
                     <Button variant="ghost" size="icon" className="text-destructive" 
                       onClick={() => {
@@ -82,7 +83,7 @@ export const LeadList = () => {
                         }
                       }}
                     >
-                      <Trash className="h-4 w-4" />
+                      <HugeiconsIcon icon={Delete02Icon} className="h-4 w-4" />
                     </Button>
                   </div>
                 </TableCell>

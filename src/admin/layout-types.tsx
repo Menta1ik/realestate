@@ -12,7 +12,8 @@ import {
   TableRow,
 } from "./components/ui/table";
 import { Button } from "./components/ui/button";
-import { Edit, Trash } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { PencilEdit02Icon, Delete02Icon } from "@hugeicons/core-free-icons";
 import {
     Form,
     FormControl,
@@ -75,7 +76,7 @@ export const LayoutTypeList = () => {
                         size="icon"
                         onClick={() => push(`/admin/layout-types/edit/${item.id}`)}
                     >
-                        <Edit className="h-4 w-4" />
+                        <HugeiconsIcon icon={PencilEdit02Icon} className="h-4 w-4" />
                     </Button>
                     <Button
                         variant="ghost"
@@ -90,7 +91,7 @@ export const LayoutTypeList = () => {
                         }
                         }}
                     >
-                        <Trash className="h-4 w-4" />
+                        <HugeiconsIcon icon={Delete02Icon} className="h-4 w-4" />
                     </Button>
                   </div>
                 </TableCell>

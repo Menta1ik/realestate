@@ -9,7 +9,8 @@ import {
   TableRow,
 } from "./components/ui/table";
 import { Button } from "./components/ui/button";
-import { Edit, Trash, Plus, X } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { PencilEdit02Icon, Delete02Icon, PlusSignIcon, Cancel01Icon } from "@hugeicons/core-free-icons";
 import { useSelect } from "@refinedev/core";
 import { useForm } from "@refinedev/react-hook-form";
 import { useForm as useHookForm, useFieldArray } from "react-hook-form";
@@ -71,7 +72,7 @@ export const ProjectList = () => {
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-2">
                     <Button variant="ghost" size="icon" onClick={() => edit("projects", project.id)}>
-                      <Edit className="h-4 w-4" />
+                      <HugeiconsIcon icon={PencilEdit02Icon} className="h-4 w-4" />
                     </Button>
                     <Button variant="ghost" size="icon" className="text-destructive" 
                       onClick={() => {
@@ -80,7 +81,7 @@ export const ProjectList = () => {
                         }
                       }}
                     >
-                      <Trash className="h-4 w-4" />
+                      <HugeiconsIcon icon={Delete02Icon} className="h-4 w-4" />
                     </Button>
                   </div>
                 </TableCell>
@@ -285,7 +286,7 @@ const ProjectForm = ({ action, defaultValues, onFinish, formLoading }: any) => {
                     <div className="flex justify-between items-center">
                         <h3 className="font-semibold text-lg">Floor Plans / Unit Types</h3>
                         <Button type="button" variant="outline" size="sm" onClick={() => appendUnit({ kind: "1BR", priceFromAED: 0 })}>
-                            <Plus className="h-4 w-4 mr-2" /> Add Unit Type
+                            <HugeiconsIcon icon={PlusSignIcon} className="h-4 w-4 mr-2" /> Add Unit Type
                         </Button>
                     </div>
                     <div className="space-y-4">
@@ -325,7 +326,7 @@ const ProjectForm = ({ action, defaultValues, onFinish, formLoading }: any) => {
                                 <div className="col-span-1">
                                     <div className="space-y-2">
                                         <span className="block text-xs font-medium text-transparent select-none">Action</span>
-                                        <Button type="button" variant="destructive" className="w-full" onClick={() => removeUnit(index)}><X className="h-4 w-4" /></Button>
+                                        <Button type="button" variant="destructive" className="w-full" onClick={() => removeUnit(index)}><HugeiconsIcon icon={Cancel01Icon} className="h-4 w-4" /></Button>
                                     </div>
                                 </div>
                             </div>
@@ -386,7 +387,7 @@ const ProjectForm = ({ action, defaultValues, onFinish, formLoading }: any) => {
                     <div className="flex justify-between items-center">
                         <h3 className="font-semibold text-lg">Photos</h3>
                         <Button type="button" variant="outline" size="sm" onClick={() => appendPhoto({ url: "" })}>
-                            <Plus className="h-4 w-4 mr-2" /> Add Photo
+                            <HugeiconsIcon icon={PlusSignIcon} className="h-4 w-4 mr-2" /> Add Photo
                         </Button>
                     </div>
                     <div className="space-y-2">
@@ -395,7 +396,7 @@ const ProjectForm = ({ action, defaultValues, onFinish, formLoading }: any) => {
                                 <FormField control={control} name={`photos.${index}.url`} render={({ field }) => (
                                     <FormItem className="flex-1"><FormControl><Input {...field} placeholder="https://..." /></FormControl></FormItem>
                                 )} />
-                                <Button type="button" variant="destructive" size="icon" onClick={() => removePhoto(index)}><X className="h-4 w-4" /></Button>
+                                <Button type="button" variant="destructive" size="icon" onClick={() => removePhoto(index)}><HugeiconsIcon icon={Cancel01Icon} className="h-4 w-4" /></Button>
                             </div>
                         ))}
                     </div>
@@ -406,7 +407,7 @@ const ProjectForm = ({ action, defaultValues, onFinish, formLoading }: any) => {
                     <div className="flex justify-between items-center">
                         <h3 className="font-semibold text-lg">Documents</h3>
                         <Button type="button" variant="outline" size="sm" onClick={() => appendDoc({ labelEn: "", labelRu: "", type: "brochure", url: "" })}>
-                            <Plus className="h-4 w-4 mr-2" /> Add Document
+                            <HugeiconsIcon icon={PlusSignIcon} className="h-4 w-4 mr-2" /> Add Document
                         </Button>
                     </div>
                     <div className="space-y-2">
@@ -427,7 +428,7 @@ const ProjectForm = ({ action, defaultValues, onFinish, formLoading }: any) => {
                                     )} />
                                     <div className="space-y-2">
                                         <span className="block text-xs font-medium text-transparent select-none">Action</span>
-                                        <Button type="button" variant="destructive" size="icon" onClick={() => removeDoc(index)}><X className="h-4 w-4" /></Button>
+                                        <Button type="button" variant="destructive" size="icon" onClick={() => removeDoc(index)}><HugeiconsIcon icon={Cancel01Icon} className="h-4 w-4" /></Button>
                                     </div>
                                 </div>
                             </div>

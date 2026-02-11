@@ -9,7 +9,8 @@ import {
   TableRow,
 } from "./components/ui/table";
 import { Button } from "./components/ui/button";
-import { Edit, Trash } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { PencilEdit02Icon, Delete02Icon } from "@hugeicons/core-free-icons";
 
 export const DeveloperList = () => {
   const { data, isLoading } = useList({
@@ -47,7 +48,7 @@ export const DeveloperList = () => {
                 <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-2">
                         <Button variant="ghost" size="icon" onClick={() => edit("developers", developer.id)}>
-                            <Edit className="h-4 w-4" />
+                            <HugeiconsIcon icon={PencilEdit02Icon} className="h-4 w-4" />
                         </Button>
                         <Button variant="ghost" size="icon" className="text-destructive" 
                             onClick={() => {
@@ -56,7 +57,7 @@ export const DeveloperList = () => {
                                 }
                             }}
                         >
-                            <Trash className="h-4 w-4" />
+                            <HugeiconsIcon icon={Delete02Icon} className="h-4 w-4" />
                         </Button>
                     </div>
                 </TableCell>

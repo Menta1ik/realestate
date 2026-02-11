@@ -9,7 +9,8 @@ import {
   TableRow,
 } from "./components/ui/table";
 import { Button } from "./components/ui/button";
-import { Edit, Trash } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { PencilEdit02Icon, Delete02Icon } from "@hugeicons/core-free-icons";
 
 export const TagCategoryList = () => {
   const { data, isLoading } = useList({
@@ -69,7 +70,7 @@ export const TagCategoryList = () => {
                       size="icon"
                       onClick={() => push(`/admin/tag-categories/edit/${item.id}`)}
                     >
-                      <Edit className="h-4 w-4" />
+                      <HugeiconsIcon icon={PencilEdit02Icon} className="h-4 w-4" />
                     </Button>
                     <Button
                       variant="ghost"
@@ -84,7 +85,7 @@ export const TagCategoryList = () => {
                         }
                       }}
                     >
-                      <Trash className="h-4 w-4" />
+                      <HugeiconsIcon icon={Delete02Icon} className="h-4 w-4" />
                     </Button>
                   </TableCell>
                 </TableRow>
