@@ -4,7 +4,8 @@ import { useApp } from '../components/AppContext'
 import { t } from '../i18n'
 import { getAreas } from '../api/areas'
 import { Area } from '../data/mock'
-import { ArrowRight } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { ArrowRight01Icon } from '@hugeicons/core-free-icons'
 
 const getAreaImage = (id: string) => {
   const images: Record<string, string> = {
@@ -134,7 +135,7 @@ function AreaTile({ area, lang }: { area: Area, lang: 'en'|'ru' }) {
              <div className="badge" style={{ fontSize: 12 }}>ROI {area.roi}</div>
            )}
            <div style={{ color: 'var(--accent-legacy)', fontSize: 14, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 4 }}>
-             {lang === 'ru' ? 'Подробнее' : 'Details'} <ArrowRight size={16} />
+             {lang === 'ru' ? 'Подробнее' : 'Details'} <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
            </div>
         </div>
       </div>

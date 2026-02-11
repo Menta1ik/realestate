@@ -15,12 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DevelopersController = void 0;
 const common_1 = require("@nestjs/common");
 const developers_service_1 = require("./developers.service");
+const create_developer_dto_1 = require("./dto/create-developer.dto");
+const update_developer_dto_1 = require("./dto/update-developer.dto");
 let DevelopersController = class DevelopersController {
     developersService;
     constructor(developersService) {
         this.developersService = developersService;
     }
-    findAll(search) {
+    create(createDeveloperDto) {
+        return this.developersService.create(createDeveloperDto);
+    }
+    async findAll(search, res) {
         const where = {};
         if (search) {
             where.OR = [
@@ -31,19 +36,36 @@ let DevelopersController = class DevelopersController {
                 { descriptionRu: { contains: search, mode: 'insensitive' } }
             ];
         }
-        return this.developersService.findAll({ where, orderBy: { name: 'asc' } });
+        const developers = await this.developersService.findAll({ where, orderBy: { name: 'asc' } });
+        res.set('Content-Range', `developers 0-${developers.length}/${developers.length}`);
+        res.set('Access-Control-Expose-Headers', 'Content-Range');
+        return res.json(developers);
     }
     findOne(id) {
         return this.developersService.findOne(id);
     }
+    update(id, updateDeveloperDto) {
+        return this.developersService.update(id, updateDeveloperDto);
+    }
+    remove(id) {
+        return this.developersService.remove(id);
+    }
 };
 exports.DevelopersController = DevelopersController;
 __decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_developer_dto_1.CreateDeveloperDto]),
+    __metadata("design:returntype", void 0)
+], DevelopersController.prototype, "create", null);
+__decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)('search')),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
 ], DevelopersController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
@@ -52,6 +74,21 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], DevelopersController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_developer_dto_1.UpdateDeveloperDto]),
+    __metadata("design:returntype", void 0)
+], DevelopersController.prototype, "update", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], DevelopersController.prototype, "remove", null);
 exports.DevelopersController = DevelopersController = __decorate([
     (0, common_1.Controller)('developers'),
     __metadata("design:paramtypes", [developers_service_1.DevelopersService])

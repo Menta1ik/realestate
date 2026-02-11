@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { Map, Pickaxe, Home, Building2, Key } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { MapsLocation01Icon, CraneIcon, Home01Icon, City01Icon, Key01Icon } from '@hugeicons/core-free-icons'
 import { useApp } from './AppContext'
 import { t } from '../i18n'
 
@@ -36,23 +37,23 @@ export function BottomNav() {
     }}>
       <div style={{ maxWidth: 940, margin: '0 auto', display: 'flex', justifyContent: 'space-between' }}>
         <NavLink to="/areas" style={linkStyle} onClick={() => haptic.selection()}>
-          <Map size={20} />
+          <HugeiconsIcon icon={MapsLocation01Icon} size={20} />
           {t(lang,'nav.areas')}
         </NavLink>
         <NavLink to="/developers" style={linkStyle} onClick={() => haptic.selection()}>
-          <Pickaxe size={20} />
+          <HugeiconsIcon icon={CraneIcon} size={20} />
           {t(lang,'nav.developers')}
         </NavLink>
         <NavLink to="/" style={linkStyle} onClick={() => haptic.selection()}>
-          <Home size={20} />
+          <HugeiconsIcon icon={Home01Icon} size={20} />
           {t(lang,'nav.home')}
         </NavLink>
         <NavLink to="/projects" style={linkStyle} onClick={() => haptic.selection()}>
-          <Building2 size={20} />
+          <HugeiconsIcon icon={City01Icon} size={20} />
           {t(lang,'nav.projects')}
         </NavLink>
         <NavLink to="/objects" style={linkStyle} onClick={() => haptic.selection()}>
-          <Key size={20} />
+          <HugeiconsIcon icon={Key01Icon} size={20} />
           {t(lang,'nav.objects')}
         </NavLink>
       </div>

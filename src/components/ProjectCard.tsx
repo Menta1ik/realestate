@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { MapPin, HardHat, Bed, Bath, Maximize, Calendar, Heart, Camera } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Location01Icon, CraneIcon, BedDoubleIcon, Bathtub01Icon, ArrowExpand01Icon, Calendar01Icon, FavouriteIcon, Camera01Icon } from '@hugeicons/core-free-icons'
 import { Project, getAreaById } from '../data/mock'
 import { useApp } from './AppContext'
 import { t } from '../i18n'
@@ -93,7 +94,7 @@ export function ProjectCard({ project, layout = 'horizontal', linkPrefix = '/pro
           e.preventDefault()
           // Toggle favorite logic here
         }}>
-          <Heart size={18} strokeWidth={1.5} />
+          <HugeiconsIcon icon={FavouriteIcon} size={18} strokeWidth={1.5} />
         </div>
         
         {/* Gallery Count */}
@@ -109,7 +110,7 @@ export function ProjectCard({ project, layout = 'horizontal', linkPrefix = '/pro
           gap: 4,
           textShadow: '0 1px 2px rgba(0,0,0,0.5)'
         }}>
-          <Camera size={12} strokeWidth={1.5} />
+          <HugeiconsIcon icon={Camera01Icon} size={12} strokeWidth={1.5} />
           <span>{project.photos?.length || 0} {lang === 'ru' ? 'фото' : 'photos'}</span>
         </div>
 
@@ -164,7 +165,7 @@ export function ProjectCard({ project, layout = 'horizontal', linkPrefix = '/pro
         {/* Location & Developer */}
         <div className="row" style={{ gap: 12, fontSize: 14, color: '#2D2D2D', marginBottom: 8, alignItems: 'center' }}>
            <div className="row" style={{ gap: 6, alignItems: 'center' }}>
-             <MapPin size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
+             <HugeiconsIcon icon={Location01Icon} size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
              <span 
                className="hover-underline"
                style={{ cursor: 'pointer' }}
@@ -181,7 +182,7 @@ export function ProjectCard({ project, layout = 'horizontal', linkPrefix = '/pro
            </div>
            <div style={{ color: '#E5E7EB', fontSize: 8 }}>•</div>
            <div className="row" style={{ gap: 6, alignItems: 'center' }}>
-             <HardHat size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
+             <HugeiconsIcon icon={CraneIcon} size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
              <span
                className="hover-underline"
                style={{ cursor: 'pointer' }}
@@ -200,24 +201,24 @@ export function ProjectCard({ project, layout = 'horizontal', linkPrefix = '/pro
 
         {/* Handover Date */}
         <div className="row" style={{ gap: 6, fontSize: 14, color: '#2D2D2D', marginBottom: 12, alignItems: 'center' }}>
-          <Calendar size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
+          <HugeiconsIcon icon={Calendar01Icon} size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
           <span>{handoverLabel}</span>
         </div>
 
         {/* Specs */}
         <div className="row" style={{ gap: 12, fontSize: 14, color: '#2D2D2D', fontWeight: 500, lineHeight: 1.5, marginBottom: 16, alignItems: 'center' }}>
           <div className="row" style={{ gap: 6, alignItems: 'center' }}>
-             <Bed size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
+             <HugeiconsIcon icon={BedDoubleIcon} size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
              <span>{project.specs.bedrooms === 0 ? 'Std' : project.specs.bedrooms}</span>
           </div>
           <div style={{ color: '#E5E7EB', fontSize: 8 }}>•</div>
           <div className="row" style={{ gap: 6, alignItems: 'center' }}>
-             <Bath size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
+             <HugeiconsIcon icon={Bathtub01Icon} size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
              <span>{project.specs.bathrooms}</span>
           </div>
           <div style={{ color: '#E5E7EB', fontSize: 8 }}>•</div>
           <div className="row" style={{ gap: 6, alignItems: 'center' }}>
-             <Maximize size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
+             <HugeiconsIcon icon={ArrowExpand01Icon} size={16} style={{ color: 'var(--accent-legacy)' }} strokeWidth={1.5} />
              <span>{sizeLabel}</span>
           </div>
           <div style={{ color: '#E5E7EB', fontSize: 8 }}>•</div>

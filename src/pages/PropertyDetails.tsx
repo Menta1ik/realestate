@@ -10,99 +10,24 @@ import { Pagination, Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
+import { HugeiconsIcon } from '@hugeicons/react'
 import {
-  Bed,
-  Bath,
-  Maximize,
-  HardHat,
-  MapPin,
-  CheckCircle2,
-  Building2,
-  Waves,
-  Dumbbell,
-  Car,
-  ShieldCheck,
-  ConciergeBell,
-  Trees,
-  ShoppingBag,
-  PawPrint,
-  Wind,
-  UserCheck,
-  BookOpen,
-  Fan,
-  Utensils,
-  Bus,
-  ChefHat,
-  Mountain,
-  Tv,
-  Gamepad2,
-  Flame,
-  Droplets,
-  Flower2,
-  Warehouse,
-  Refrigerator,
-  FileText,
-  Download,
-  TrainFront
-} from 'lucide-react'
-
-// --- Icon Mapping ---
-const AMENITY_ICONS: Record<string, any> = {
-  // Common
-  shared_pool: Waves,
-  private_pool: Waves,
-  kids_pool: Waves,
-  
-  shared_gym: Dumbbell,
-  private_gym: Dumbbell,
-  gym: Dumbbell,
-  
-  covered_parking: Car,
-  security: ShieldCheck,
-  concierge: ConciergeBell,
-  
-  balcony: Wind,
-  
-  maid_service: UserCheck,
-  maids_room: UserCheck,
-  
-  pets_allowed: PawPrint,
-  
-  beachfront: Waves,
-  public_parks: Trees,
-  private_garden: Trees,
-  
-  near_mall: ShoppingBag,
-  supermarket: ShoppingBag,
-  
-  restaurant: Utensils,
-  bbq_area: Flame,
-  bbq_facility: Flame,
-  
-  near_transport: TrainFront,
-  
-  central_ac: Fan,
-  
-  builtin_wardrobes: Warehouse,
-  builtin_wardrobe: Warehouse,
-  
-  equipped_kitchen: ChefHat,
-  builtin_appliances: Refrigerator,
-  
-  sea_view: Waves,
-  water_view: Waves,
-  landmark_view: MapPin,
-  
-  cable_tv: Tv,
-  kids_playground: Trees,
-  
-  shared_spa: Waves,
-  private_jacuzzi: Waves,
-  
-  study: BookOpen,
-  
-  maintenance: HardHat,
-}
+  ArrowLeft01Icon,
+  Share01Icon,
+  FavouriteIcon,
+    Location01Icon,
+    BedDoubleIcon,
+    Bathtub01Icon,
+    ArrowExpand01Icon,
+    Calendar01Icon,
+    CheckmarkCircle01Icon,
+  Download01Icon,
+  Cancel01Icon,
+  Settings01Icon,
+  Building01Icon,
+  File01Icon
+} from '@hugeicons/core-free-icons'
+import { AMENITY_TO_HUGEICONS, DEFAULT_ICON } from '../lib/icons'
 
 export default function PropertyDetails() {
   const { lang, currency } = useApp()
@@ -199,7 +124,7 @@ export default function PropertyDetails() {
         {/* Hero Content (Bottom Left) */}
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 10, padding: '0 20px 24px' }}>
           <div className="row" style={{ color: 'rgba(255,255,255,0.9)', marginBottom: 16, gap: 6 }}>
-            <MapPin size={16} />
+            <HugeiconsIcon icon={Location01Icon} size={16} strokeWidth={1.5} />
             <span style={{ fontSize: 15 }}>
               {area ? (lang === 'ru' ? area.nameRu : area.nameEn) : 'Dubai'}
             </span>
@@ -234,7 +159,7 @@ export default function PropertyDetails() {
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--muted-legacy)', fontSize: 15, marginTop: 6 }}>
-            <Building2 size={16} />
+            <HugeiconsIcon icon={Building01Icon} size={16} strokeWidth={1.5} />
             <span>{project.developer}</span>
           </div>
         </div>
@@ -242,24 +167,24 @@ export default function PropertyDetails() {
         {/* 2. Key Specs Grid */}
         <div className="grid4" style={{ gap: 12 }}>
           <SpecItem 
-            icon={<Bed size={20} />} 
+            icon={<HugeiconsIcon icon={BedDoubleIcon} size={20} strokeWidth={1.5} />} 
             label={t(lang, 'project.specs.beds')}
             value={`${project.specs.bedrooms} ${lang === 'ru' ? 'сп.' : 'BR'}`} 
           />
           <SpecItem 
-            icon={<Bath size={20} />} 
+            icon={<HugeiconsIcon icon={Bathtub01Icon} size={20} strokeWidth={1.5} />} 
             label={t(lang, 'project.specs.baths')}
             value={project.specs.bathrooms} 
           />
           <SpecItem 
-            icon={<Maximize size={20} />} 
+            icon={<HugeiconsIcon icon={ArrowExpand01Icon} size={20} strokeWidth={1.5} />} 
             label={t(lang, 'project.specs.area')} 
             value={`${sizeVal} ${sizeUnit}`} 
             onClick={() => setIsSqft(!isSqft)}
             isActionable
           />
           <SpecItem 
-            icon={<HardHat size={20} />} 
+            icon={<HugeiconsIcon icon={Settings01Icon} size={20} strokeWidth={1.5} />} 
             label={t(lang, 'project.specs.developer')}
             value={project.developer} 
           />
@@ -283,7 +208,7 @@ export default function PropertyDetails() {
                    </div>
                    {uSize && (
                      <div className="row" style={{ gap: 6, opacity: 0.6, fontSize: 14 }}>
-                        <Maximize size={14} />
+                        <HugeiconsIcon icon={ArrowExpand01Icon} size={14} strokeWidth={1.5} />
                         {uSize} {sizeUnit}
                      </div>
                    )}
@@ -339,10 +264,10 @@ export default function PropertyDetails() {
           <div className="h2" style={{ marginBottom: 16 }}>{t(lang, 'project.amenities')}</div>
           <div className="grid2" style={{ gap: 12 }}>
             {project.amenities.map(key => {
-              const Icon = AMENITY_ICONS[key] || CheckCircle2
+              const Icon = AMENITY_TO_HUGEICONS[key] || DEFAULT_ICON
               return (
                 <div key={key} className="row" style={{ gap: 12, padding: 14, background: 'var(--card-legacy)', borderRadius: 12, border: '1px solid var(--border-legacy)', boxShadow: 'var(--shadow-legacy)' }}>
-                  <Icon size={20} color="var(--accent-legacy)" />
+                  <HugeiconsIcon icon={Icon} size={20} color="var(--accent-legacy)" strokeWidth={1.5} />
                   <span style={{ fontSize: 14, fontWeight: 500 }}>{t(lang, `amenity.${key}`)}</span>
                 </div>
               )
@@ -380,7 +305,7 @@ export default function PropertyDetails() {
                       color: '#e53e3e',
                       display: 'grid', placeItems: 'center' 
                     }}>
-                      <FileText size={20} />
+                      <HugeiconsIcon icon={File01Icon} size={20} strokeWidth={1.5} />
                     </div>
                     <div>
                       <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--text-legacy)' }}>
@@ -390,7 +315,7 @@ export default function PropertyDetails() {
                     </div>
                   </div>
                   <div style={{ color: 'var(--accent-legacy)' }}>
-                    <Download size={20} />
+                    <HugeiconsIcon icon={Download01Icon} size={20} strokeWidth={1.5} />
                   </div>
                 </a>
               ))}
@@ -434,7 +359,7 @@ export default function PropertyDetails() {
             boxShadow: '0 4px 12px rgba(43, 108, 176, 0.3)'
           }}
         >
-          <Building2 size={18} />
+          <HugeiconsIcon icon={Building01Icon} size={18} strokeWidth={1.5} />
           {t(lang, 'project.enquire')}
         </a>
       </div>

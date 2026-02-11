@@ -15,12 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjectsController = void 0;
 const common_1 = require("@nestjs/common");
 const projects_service_1 = require("./projects.service");
+const create_project_dto_1 = require("./dto/create-project.dto");
+const update_project_dto_1 = require("./dto/update-project.dto");
 let ProjectsController = class ProjectsController {
     projectsService;
     constructor(projectsService) {
         this.projectsService = projectsService;
     }
-    findAll(search, status, type, minPrice, maxPrice, bedrooms, sort) {
+    create(createProjectDto) {
+        return this.projectsService.create(createProjectDto);
+    }
+    async findAll(search, status, type, minPrice, maxPrice, bedrooms, sort, res) {
         const where = {
             AND: [],
         };
@@ -28,7 +33,7 @@ let ProjectsController = class ProjectsController {
         if (search) {
             and.push({
                 OR: [
-                    { nameEn: { contains: search } }, // SQLite is case-sensitive by default usually, but Prisma handles insensitive?
+                    { nameEn: { contains: search } },
                     { nameRu: { contains: search } },
                     { developer: { contains: search } },
                     { ref: { contains: search } },
@@ -36,7 +41,7 @@ let ProjectsController = class ProjectsController {
             });
         }
         if (status && status !== 'all') {
-            and.push({ status: { equals: status } }); // Make sure case matches or handle mapping
+            and.push({ status: { equals: status } });
         }
         if (type) {
             and.push({ type: { equals: type } });
@@ -48,14 +53,10 @@ let ProjectsController = class ProjectsController {
             and.push({ priceFromAED: { lte: Number(maxPrice) } });
         }
         if (bedrooms) {
-            // "bedrooms" in DB is string "1, 2, 3".
-            // If user filters for "2", we check if string contains "2".
-            // Note: this is a simple naive search. Better to store as array or normalize.
             if (bedrooms === 'studio') {
                 and.push({ bedrooms: { contains: 'Studio' } });
             }
             else if (bedrooms === '4+') {
-                // Complex logic, maybe just search for 4, 5, 6...
                 and.push({
                     OR: [
                         { bedrooms: { contains: '4' } },
@@ -77,18 +78,34 @@ let ProjectsController = class ProjectsController {
             orderBy.priceFromAED = 'desc';
         }
         else {
-            orderBy.createdAt = 'desc'; // Default
+            orderBy.createdAt = 'desc';
         }
-        return this.projectsService.findAll({
+        const projects = await this.projectsService.findAll({
             where,
             orderBy,
         });
+        res.set('Content-Range', `projects 0-${projects.length}/${projects.length}`);
+        res.set('Access-Control-Expose-Headers', 'Content-Range');
+        return res.json(projects);
     }
     findOne(id) {
         return this.projectsService.findOne(id);
     }
+    update(id, updateProjectDto) {
+        return this.projectsService.update(id, updateProjectDto);
+    }
+    remove(id) {
+        return this.projectsService.remove(id);
+    }
 };
 exports.ProjectsController = ProjectsController;
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_project_dto_1.CreateProjectDto]),
+    __metadata("design:returntype", void 0)
+], ProjectsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)('search')),
@@ -98,9 +115,10 @@ __decorate([
     __param(4, (0, common_1.Query)('maxPrice')),
     __param(5, (0, common_1.Query)('bedrooms')),
     __param(6, (0, common_1.Query)('sort')),
+    __param(7, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String, String, String, String, String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String, String, String, String, String, String, String, Object]),
+    __metadata("design:returntype", Promise)
 ], ProjectsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
@@ -109,6 +127,21 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ProjectsController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_project_dto_1.UpdateProjectDto]),
+    __metadata("design:returntype", void 0)
+], ProjectsController.prototype, "update", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ProjectsController.prototype, "remove", null);
 exports.ProjectsController = ProjectsController = __decorate([
     (0, common_1.Controller)('projects'),
     __metadata("design:paramtypes", [projects_service_1.ProjectsService])

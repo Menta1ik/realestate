@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import { Project, genLeadId } from '../data/mock'
 import { useApp } from './AppContext'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Cancel01Icon } from '@hugeicons/core-free-icons'
 
 type Props = {
   open: boolean
@@ -49,7 +51,9 @@ export function LeadModal({ open, onClose, project }: Props) {
             <div className="h2">Request details</div>
             <div className="p">{project ? (lang === 'ru' ? project.nameRu : project.nameEn) : 'General request'} • LeadID: {leadId}</div>
           </div>
-          <button className="btn" onClick={onClose}>✕</button>
+          <button className="btn" onClick={onClose} style={{ padding: 8 }}>
+            <HugeiconsIcon icon={Cancel01Icon} size={20} />
+          </button>
         </div>
 
         <div className="hr" />

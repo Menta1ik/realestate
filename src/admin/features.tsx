@@ -11,7 +11,7 @@ import {
 import { Button } from "./components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { PencilEdit02Icon, Delete02Icon } from "@hugeicons/core-free-icons";
-import * as LucideIcons from "lucide-react";
+import { getIconData } from "../lib/icons";
 
 export const FeatureList = () => {
   const { data, isLoading } = useList({
@@ -41,13 +41,13 @@ export const FeatureList = () => {
           </TableHeader>
           <TableBody>
             {data?.data?.map((feature: any) => {
-              const IconComponent = (LucideIcons as any)[feature.icon];
+              const iconData = getIconData(feature.icon);
               return (
               <TableRow key={feature.id}>
                 <TableCell className="font-medium">{feature.nameEn}</TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    {IconComponent && <IconComponent className="h-4 w-4" />}
+                    <HugeiconsIcon icon={iconData} className="h-4 w-4" />
                     <span>{feature.icon}</span>
                   </div>
                 </TableCell>
@@ -90,6 +90,7 @@ import {
     FormMessage,
 } from "./components/ui/form";
 import { Input } from "./components/ui/input";
+import { IconPicker } from "./components/IconPicker";
 
 const formSchema = z.object({
     nameEn: z.string().min(2, "Required"),
@@ -143,9 +144,9 @@ export const FeatureEdit = () => {
                         name="icon"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Icon (Lucide Name)</FormLabel>
+                                <FormLabel>Icon</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="waves" {...field} />
+                                    <IconPicker value={field.value} onChange={field.onChange} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -211,9 +212,9 @@ export const FeatureCreate = () => {
                         name="icon"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Icon (Lucide Name)</FormLabel>
+                                <FormLabel>Icon</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="waves" {...field} />
+                                    <IconPicker value={field.value} onChange={field.onChange} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

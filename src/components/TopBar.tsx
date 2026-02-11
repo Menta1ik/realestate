@@ -2,6 +2,8 @@ import { Link, useLocation } from 'react-router-dom'
 import { tenant } from '../data/mock'
 import { useApp } from './AppContext'
 import { t } from '../i18n'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { ArrowLeft01Icon } from '@hugeicons/core-free-icons'
 
 export function TopBar() {
   const loc = useLocation()
@@ -15,7 +17,9 @@ export function TopBar() {
     <header style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(10px)', borderBottom: '1px solid var(--border-legacy)', background: 'rgba(255,255,255,0.85)' }}>
       <div style={{ maxWidth: 940, margin: '0 auto', padding: '10px 12px', display: 'flex', alignItems: 'center', gap: 10 }}>
         {showBack && (
-          <Link className="btn" to={showBackProject ? "/projects" : "/objects"} style={{ padding: '8px 10px' }}>←</Link>
+          <Link className="btn" to={showBackProject ? "/projects" : "/objects"} style={{ padding: '8px 10px' }}>
+            <HugeiconsIcon icon={ArrowLeft01Icon} size={20} />
+          </Link>
         )}
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 0 }}>

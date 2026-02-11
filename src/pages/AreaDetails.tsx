@@ -4,18 +4,19 @@ import { useApp } from '../components/AppContext'
 import { getArea } from '../api/areas'
 import { fetchAllFeatures, Feature } from '../api/features'
 import { Area } from '../data/mock'
+import { HugeiconsIcon } from '@hugeicons/react'
 import { 
-  ArrowLeft, MapPin, School, Building2, Wallet, CheckCircle2, Trees, ShoppingBag, 
-  Dumbbell, Utensils, Waves, TrainFront, Briefcase, Flag, Car, ShieldCheck, 
-  ConciergeBell, Wind, UserCheck, PawPrint, Flame, Fan, Warehouse, ChefHat, 
-  Refrigerator, Tv, BookOpen, HardHat 
-} from 'lucide-react'
-
-const ICON_MAP: Record<string, any> = {
-  Waves, Trees, ShoppingBag, School, Dumbbell, Utensils, TrainFront, Briefcase, MapPin, 
-  CheckCircle2, Car, ShieldCheck, ConciergeBell, Wind, UserCheck, PawPrint, Flame, Fan,
-  Warehouse, ChefHat, Refrigerator, Tv, BookOpen, HardHat
-}
+  ArrowLeft01Icon, 
+  Building01Icon, 
+  Money01Icon, 
+  Location01Icon, 
+  BookOpen01Icon,
+  WaveIcon,
+  Tree01Icon,
+  ShoppingBag01Icon,
+  CheckmarkCircle01Icon
+} from '@hugeicons/core-free-icons'
+import { getIconData } from '../lib/icons'
 
 const getFeatureIcon = (featureName: string, featuresList: Feature[]) => {
   const lower = featureName.toLowerCase()
@@ -26,23 +27,22 @@ const getFeatureIcon = (featureName: string, featuresList: Feature[]) => {
     f.nameRu.toLowerCase() === lower
   )
 
-  if (found && ICON_MAP[found.icon]) {
-    const Icon = ICON_MAP[found.icon]
-    return <Icon size={18} className="text-accent" />
+  let Icon = CheckmarkCircle01Icon;
+
+  if (found && found.icon) {
+    Icon = getIconData(found.icon);
+  } else {
+    // Fallback to heuristic if not found in catalog (for backward compatibility)
+    if (lower.includes('beach') || lower.includes('пляж') || lower.includes('sea') || lower.includes('мор') || 
+        lower.includes('pool') || lower.includes('бассейн') || lower.includes('water') || lower.includes('вод')) 
+      Icon = WaveIcon
+    else if (lower.includes('park') || lower.includes('парк') || lower.includes('green') || lower.includes('зелен')) 
+      Icon = Tree01Icon
+    else if (lower.includes('mall') || lower.includes('торгов') || lower.includes('shop') || lower.includes('магазин')) 
+      Icon = ShoppingBag01Icon
   }
 
-  // Fallback to heuristic if not found in catalog (for backward compatibility)
-  if (lower.includes('beach') || lower.includes('пляж') || lower.includes('sea') || lower.includes('мор') || 
-      lower.includes('pool') || lower.includes('бассейн') || lower.includes('water') || lower.includes('вод')) 
-    return <Waves size={18} className="text-accent" />
-    
-  if (lower.includes('park') || lower.includes('парк') || lower.includes('green') || lower.includes('зелен')) 
-    return <Trees size={18} className="text-accent" />
-    
-  if (lower.includes('mall') || lower.includes('торгов') || lower.includes('shop') || lower.includes('магазин')) 
-    return <ShoppingBag size={18} className="text-accent" />
-    
-  return <CheckCircle2 size={18} className="text-accent" />
+  return <HugeiconsIcon icon={Icon} size={18} className="text-accent" strokeWidth={1.5} />
 }
 
 export default function AreaDetails() {
@@ -89,7 +89,7 @@ export default function AreaDetails() {
       {/* Header with Back Button */}
       <div className="row" style={{ alignItems: 'center', gap: 12 }}>
         <button onClick={() => navigate(-1)} className="btn-icon" style={{ background: 'none', border: 'none', padding: 0 }}>
-          <ArrowLeft size={24} />
+          <HugeiconsIcon icon={ArrowLeft01Icon} size={24} strokeWidth={1.5} />
         </button>
         <div className="h2" style={{ margin: 0 }}>{name}</div>
       </div>
@@ -98,7 +98,7 @@ export default function AreaDetails() {
       <div className="card" style={{ padding: 20 }}>
         {type && (
           <div className="row" style={{ gap: 8, marginBottom: 16, alignItems: 'center', opacity: 0.7 }}>
-            <Building2 size={16} />
+            <HugeiconsIcon icon={Building01Icon} size={16} strokeWidth={1.5} />
             <span style={{ fontSize: 14 }}>{type}</span>
           </div>
         )}
@@ -109,7 +109,7 @@ export default function AreaDetails() {
 
         {area.roi && (
           <div style={{ marginTop: 16, display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(var(--accent-rgb-legacy), 0.1)', color: 'var(--accent-legacy)', padding: '6px 12px', borderRadius: 8, fontWeight: 600, fontSize: 14 }}>
-            <Wallet size={16} />
+            <HugeiconsIcon icon={Money01Icon} size={16} strokeWidth={1.5} />
             ROI {area.roi}
           </div>
         )}
@@ -119,7 +119,7 @@ export default function AreaDetails() {
       {location && (
         <div className="card" style={{ padding: 20 }}>
           <div className="h3" style={{ marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <MapPin size={20} className="text-accent" />
+            <HugeiconsIcon icon={Location01Icon} size={20} className="text-accent" strokeWidth={1.5} />
             {lang === 'ru' ? 'Расположение' : 'Location'}
           </div>
           <div className="p">{location}</div>
@@ -161,7 +161,7 @@ export default function AreaDetails() {
       {schools && Array.isArray(schools) && schools.length > 0 && (
         <div className="card" style={{ padding: 20 }}>
           <div className="h3" style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <School size={20} className="text-accent" />
+            <HugeiconsIcon icon={BookOpen01Icon} size={20} className="text-accent" strokeWidth={1.5} />
             {lang === 'ru' ? 'Школы' : 'Schools'}
           </div>
           <div className="col" style={{ gap: 12 }}>
@@ -179,7 +179,7 @@ export default function AreaDetails() {
       {prices && (
         <div className="card" style={{ padding: 20 }}>
           <div className="h3" style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <Wallet size={20} className="text-accent" />
+            <HugeiconsIcon icon={Money01Icon} size={20} className="text-accent" strokeWidth={1.5} />
             {lang === 'ru' ? 'Средние цены' : 'Average Prices'}
           </div>
           <div className="col" style={{ gap: 10 }}>

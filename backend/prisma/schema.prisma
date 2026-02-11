@@ -146,7 +146,7 @@ model TagCategory {
   nameRu    String?
   color     String?  // hex code or css var
   bgColor   String?  // background color for soft ui
-  icon      String?  // lucide icon name
+  icon      String?  // Icon name
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

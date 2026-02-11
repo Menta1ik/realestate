@@ -5,6 +5,8 @@ import { t } from '../i18n'
 import { fetchDeveloperById, Developer } from '../api/developers'
 import { ProjectCard } from '../components/ProjectCard'
 import { Project } from '../data/mock'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Calendar03Icon, Location01Icon, Building03Icon } from '@hugeicons/core-free-icons'
 
 export default function DeveloperDetails() {
   const { lang } = useApp()
@@ -38,7 +40,7 @@ export default function DeveloperDetails() {
         <div className="row" style={{ gap: 24, flexWrap: 'wrap', marginBottom: 16 }}>
           {developer.year && (
             <div className="row" style={{ gap: 6, alignItems: 'center' }}>
-              <span style={{ fontSize: 20 }}>📅</span>
+              <HugeiconsIcon icon={Calendar03Icon} size={20} className="text-accent" />
               <div>
                 <div className="p" style={{ fontSize: 12, opacity: 0.7 }}>Since</div>
                 <div style={{ fontWeight: 600 }}>{developer.year}</div>
@@ -55,7 +57,7 @@ export default function DeveloperDetails() {
             </div>
           )}
           <div className="row" style={{ gap: 6, alignItems: 'center' }}>
-            <span style={{ fontSize: 20 }}>🏗️</span>
+            <HugeiconsIcon icon={Building03Icon} size={20} className="text-accent" />
             <div>
               <div className="p" style={{ fontSize: 12, opacity: 0.7 }}>Projects</div>
               <div style={{ fontWeight: 600 }}>{developer.projects?.length || 0}</div>

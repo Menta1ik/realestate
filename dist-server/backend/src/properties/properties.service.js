@@ -17,6 +17,11 @@ let PropertiesService = class PropertiesService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    async create(createPropertyDto) {
+        return this.prisma.property.create({
+            data: createPropertyDto,
+        });
+    }
     async findAll(params) {
         const { skip, take, cursor, where, orderBy } = params;
         return this.prisma.property.findMany({
@@ -46,6 +51,17 @@ let PropertiesService = class PropertiesService {
                 unitTypes: true,
                 documents: true,
             },
+        });
+    }
+    async update(id, updatePropertyDto) {
+        return this.prisma.property.update({
+            where: { id },
+            data: updatePropertyDto,
+        });
+    }
+    async remove(id) {
+        return this.prisma.property.delete({
+            where: { id },
         });
     }
 };

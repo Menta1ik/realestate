@@ -1,4 +1,5 @@
-import { X } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Cancel01Icon } from '@hugeicons/core-free-icons'
 import { useApp } from './AppContext'
 import { t } from '../i18n'
 import { PropertyType } from '../data/mock'
@@ -114,7 +115,7 @@ export function FilterModal({
         <div className="row" style={{ justifyContent: 'space-between', marginBottom: 16 }}>
           <div className="h2">{t(lang, 'projects.filters')}</div>
           <button onClick={onClose} style={{ background: 'none', border: 'none', padding: 4 }}>
-            <X size={24} />
+            <HugeiconsIcon icon={Cancel01Icon} size={24} />
           </button>
         </div>
 

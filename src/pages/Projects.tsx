@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { LayoutList, LayoutGrid } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { ListViewIcon, GridIcon } from '@hugeicons/core-free-icons'
 import { collections, getAreaById } from '../data/mock'
 import { ProjectCard } from '../components/ProjectCard'
 import { useApp } from '../components/AppContext'
@@ -90,7 +91,7 @@ export default function Projects() {
                 opacity: viewMode === 'list' ? 1 : 0.5
               }}
             >
-              <LayoutList size={20} />
+              <HugeiconsIcon icon={ListViewIcon} size={20} />
             </button>
             <button 
               className="btn-icon" 
@@ -102,7 +103,7 @@ export default function Projects() {
                 opacity: viewMode === 'grid' ? 1 : 0.5
               }}
             >
-              <LayoutGrid size={20} />
+              <HugeiconsIcon icon={GridIcon} size={20} />
             </button>
           </div>
         </div>

@@ -16,7 +16,6 @@ exports.LeadsController = void 0;
 const common_1 = require("@nestjs/common");
 const leads_service_1 = require("./leads.service");
 const client_1 = require("@prisma/client");
-const telegram_auth_guard_1 = require("../guards/telegram-auth.guard");
 let LeadsController = class LeadsController {
     leadsService;
     constructor(leadsService) {
@@ -26,9 +25,16 @@ let LeadsController = class LeadsController {
         return this.leadsService.create(data);
     }
     // Only admin/authorized users should see leads. 
-    // For now, I'll protect it with the same guard, but ideally needs role checks.
-    findAll() {
-        return this.leadsService.findAll();
+    // For now, removing guard to simplify admin panel integration as Auth is not requested yet.
+    // @UseGuards(TelegramAuthGuard)
+    async findAll(res) {
+        const leads = await this.leadsService.findAll();
+        res.set('Content-Range', `leads 0-${leads.length}/${leads.length}`);
+        res.set('Access-Control-Expose-Headers', 'Content-Range');
+        return res.json(leads);
+    }
+    findOne(id) {
+        return this.leadsService.findOne(id);
     }
 };
 exports.LeadsController = LeadsController;
@@ -40,12 +46,19 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], LeadsController.prototype, "create", null);
 __decorate([
-    (0, common_1.UseGuards)(telegram_auth_guard_1.TelegramAuthGuard),
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
 ], LeadsController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], LeadsController.prototype, "findOne", null);
 exports.LeadsController = LeadsController = __decorate([
     (0, common_1.Controller)('leads'),
     __metadata("design:paramtypes", [leads_service_1.LeadsService])

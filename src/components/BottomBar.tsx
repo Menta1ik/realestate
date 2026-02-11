@@ -1,4 +1,5 @@
-import { SlidersHorizontal, ArrowUpDown } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { FilterHorizontalIcon, SortByUp01Icon } from '@hugeicons/core-free-icons'
 import { tenant } from '../data/mock'
 import { useApp } from './AppContext'
 import { t } from '../i18n'
@@ -20,7 +21,7 @@ export function BottomBar({ onOpenFilters, onToggleSort }: Props) {
         }}
         className="bottomBarBtn primary"
       >
-        <SlidersHorizontal size={18} />
+        <HugeiconsIcon icon={FilterHorizontalIcon} size={18} strokeWidth={1.5} />
         {t(lang, 'projects.filters').toUpperCase()}
       </button>
 
@@ -31,7 +32,7 @@ export function BottomBar({ onOpenFilters, onToggleSort }: Props) {
         }}
         className="bottomBarBtn secondary"
       >
-        <ArrowUpDown size={20} />
+        <HugeiconsIcon icon={SortByUp01Icon} size={20} strokeWidth={1.5} />
       </button>
 
       <a 

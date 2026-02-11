@@ -18,6 +18,10 @@ const projects_module_1 = require("./projects/projects.module");
 const properties_module_1 = require("./properties/properties.module");
 const leads_module_1 = require("./leads/leads.module");
 const developers_module_1 = require("./developers/developers.module");
+const areas_module_1 = require("./areas/areas.module");
+const features_module_1 = require("./features/features.module");
+const tag_categories_module_1 = require("./tag-categories/tag-categories.module");
+const layout_types_module_1 = require("./layout-types/layout-types.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -34,7 +38,11 @@ exports.AppModule = AppModule = __decorate([
             projects_module_1.ProjectsModule,
             properties_module_1.PropertiesModule,
             leads_module_1.LeadsModule,
-            developers_module_1.DevelopersModule
+            developers_module_1.DevelopersModule,
+            areas_module_1.AreasModule,
+            features_module_1.FeaturesModule,
+            tag_categories_module_1.TagCategoriesModule,
+            layout_types_module_1.LayoutTypesModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

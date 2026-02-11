@@ -17,6 +17,11 @@ let DevelopersService = class DevelopersService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    async create(createDeveloperDto) {
+        return this.prisma.developer.create({
+            data: createDeveloperDto,
+        });
+    }
     async findAll(params) {
         const { skip, take, cursor, where, orderBy } = params;
         return this.prisma.developer.findMany({
@@ -54,6 +59,17 @@ let DevelopersService = class DevelopersService {
                     }
                 }
             }
+        });
+    }
+    async update(id, updateDeveloperDto) {
+        return this.prisma.developer.update({
+            where: { id },
+            data: updateDeveloperDto,
+        });
+    }
+    async remove(id) {
+        return this.prisma.developer.delete({
+            where: { id },
         });
     }
 };

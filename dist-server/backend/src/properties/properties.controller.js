@@ -15,12 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PropertiesController = void 0;
 const common_1 = require("@nestjs/common");
 const properties_service_1 = require("./properties.service");
+const create_property_dto_1 = require("./dto/create-property.dto");
+const update_property_dto_1 = require("./dto/update-property.dto");
 let PropertiesController = class PropertiesController {
     propertiesService;
     constructor(propertiesService) {
         this.propertiesService = propertiesService;
     }
-    findAll(search, status, type, minPrice, maxPrice, bedrooms, sort) {
+    create(createPropertyDto) {
+        return this.propertiesService.create(createPropertyDto);
+    }
+    async findAll(search, status, type, minPrice, maxPrice, bedrooms, sort, res) {
         const where = {
             AND: [],
         };
@@ -76,16 +81,32 @@ let PropertiesController = class PropertiesController {
         else {
             orderBy.createdAt = 'desc'; // Default
         }
-        return this.propertiesService.findAll({
+        const properties = await this.propertiesService.findAll({
             where,
             orderBy,
         });
+        res.set('Content-Range', `properties 0-${properties.length}/${properties.length}`);
+        res.set('Access-Control-Expose-Headers', 'Content-Range');
+        return res.json(properties);
     }
     findOne(id) {
         return this.propertiesService.findOne(id);
     }
+    update(id, updatePropertyDto) {
+        return this.propertiesService.update(id, updatePropertyDto);
+    }
+    remove(id) {
+        return this.propertiesService.remove(id);
+    }
 };
 exports.PropertiesController = PropertiesController;
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_property_dto_1.CreatePropertyDto]),
+    __metadata("design:returntype", void 0)
+], PropertiesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)('search')),
@@ -95,9 +116,10 @@ __decorate([
     __param(4, (0, common_1.Query)('maxPrice')),
     __param(5, (0, common_1.Query)('bedrooms')),
     __param(6, (0, common_1.Query)('sort')),
+    __param(7, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String, String, String, String, String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String, String, String, String, String, String, String, Object]),
+    __metadata("design:returntype", Promise)
 ], PropertiesController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
@@ -106,6 +128,21 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], PropertiesController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_property_dto_1.UpdatePropertyDto]),
+    __metadata("design:returntype", void 0)
+], PropertiesController.prototype, "update", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], PropertiesController.prototype, "remove", null);
 exports.PropertiesController = PropertiesController = __decorate([
     (0, common_1.Controller)('properties'),
     __metadata("design:paramtypes", [properties_service_1.PropertiesService])
